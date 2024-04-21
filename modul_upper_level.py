@@ -5,8 +5,10 @@ import save_data_user
 def create_note(input_data):
     if modul_lower_level.checks_input_for_empty_str(input_data):
         lst = modul_lower_level.save_input_data(input_data)
-        data_set_notes = save_data_user.create_data_matrix(lst)
-    return data_set_notes
+        save_data_user.create_note_matrix(lst)
+        return True
+    else:
+        return False
 
 
 def search_note_by_name():

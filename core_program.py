@@ -23,5 +23,5 @@ def starts_main_loop():
         if input_data == 'stop':
             return
         if not modul_upper_level.create_note(input_data):
-            GUI.output_data(GUI.output_data_message['err'])
+            GUI.output_data(GUI.output_data_message['empty_note'])
 

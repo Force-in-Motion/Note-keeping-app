@@ -1,5 +1,7 @@
+import modul_upper_level
 
-def create_data_matrix(lst: list) -> list[list]:
+
+def create_note_matrix(lst: list) -> list[list]:
     """
     Создает матрицу вложенных списков, каждый список содержит все данные заметки
     :param lst: Пренимает список, содержащий все данные заметки, введеные пользователем
@@ -9,3 +11,4 @@ def create_data_matrix(lst: list) -> list[list]:
     for i in lst:
         data_set_notes.append(lst)
     return data_set_notes
+
