@@ -8,19 +8,19 @@ output_data_message = {'greetings': """Приветствую Вас!
         Вывод всех заметок повышеной степени важности
         Редактирование заметок
         Удаление заметок""",
-               'importance': 'Если заметка важна напишите "Важная заметка" или "Обычная заметка" если заметка не важна',
                'save': 'Ваша заметка успешно сохранена!',
                'off': 'Приложение завершило свою работу',
-               'empty_note': 'Вы ввели пустую строку! Название заметки'
+               'empty_note': 'Вы ввели пустую строку! Название заметки',
+               'err': 'Ошибка сохранения'
                }
 
 
 
-input_data = {'name_note': 'Введите наименование заметки >> ',
-              'importance_note': 'Определите важность заметки >> ',
-              'important': 'Важная заметка',
-              'not_important': 'Обычная заметка'
-              }
+input_data_message = {'name_note': 'Введите название заметки >> ',
+                      'importance': 'Укажите важность заметки >> ',
+                      'important': 'Важная заметка',
+                      'not_important': 'Обычная заметка'
+                      }
 
 
 
@@ -40,10 +40,10 @@ def print_output_menu() -> str:
     :return: None
     """
     color_text()
-    print(output_data['greetings'])
+    print(output_data_message['greetings'])
     print()
     color_text()
-    print(output_data['menu'])
+    print(output_data_message['menu'])
     print()
 
 
