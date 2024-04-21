@@ -1,11 +1,10 @@
-import input_data_user
+import GUI
 import modul_upper_level
-import output_data_user
+
 
 
 def run_program():
-    output_data_user.print_output_greetings()
-    input_data_user.input_name_note()
+    GUI.print_output_menu()
     # starts_main_loop()
 
 
