@@ -5,6 +5,7 @@ import modul_upper_level
 
 def run_program():
     GUI.print_output_menu()
+    GUI.input_data('Введите наименование заметки >> ')
     # starts_main_loop()
 
 
