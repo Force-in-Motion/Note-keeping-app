@@ -1,14 +1,41 @@
 import modul_lower_level
-import save_data_user
+import GUI
 
 
-def create_note(input_data):
-    if modul_lower_level.checks_input_for_empty_str(input_data):
-        lst = modul_lower_level.save_input_data(input_data)
-        save_data_user.create_note_matrix(lst)
-        return True
-    else:
-        return False
+def create_note():
+    """
+    Создает матрицу вложенных списков, каждый список содержит все данные заметки
+    :param lst: Пренимает список, содержащий все данные заметки, введеные пользователем
+    :return: Матрицу заметок
+    """
+    data_set_notes = []
+    while True:
+        data_set_notes.append([])
+        while True:
+            name_note = GUI.input_data('Введите название заметки >> ')
+            if not modul_lower_level.checks_input_for_empty_str(name_note):
+                GUI.output_data(GUI.output_data_message['empty_note'])
+                continue
+            else:
+                data_set_notes[-1].append(name_note)
+
+            importance = GUI.input_data('Укажите важность заметки >> ')
+            if not modul_lower_level.checks_input_for_empty_str(importance):
+                GUI.output_data(GUI.output_data_message['empty_note'])
+                continue
+            else:
+                data_set_notes[-1].append(importance)
+
+
+            text_note = GUI.input_data('Введите текст заметки')
+            if not modul_lower_level.checks_input_for_empty_str(text_note):
+                GUI.output_data(GUI.output_data_message['empty_note'])
+                continue
+            else:
+                data_set_notes[-1].append(text_note)
+
+
+            return data_set_notes
 
 
 def search_note_by_name():

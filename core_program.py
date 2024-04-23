@@ -1,4 +1,4 @@
-import save_data_user
+
 import modul_upper_level
 import GUI
 
@@ -19,9 +19,14 @@ def starts_main_loop():
     :return:
     """
     while True:
-        input_data = GUI.input_data(GUI.input_data_message['name_note'])
+        input_data = GUI.input_data('Введите команду >> ')
         if input_data == 'stop':
             return
-        if not modul_upper_level.create_note(input_data):
-            GUI.output_data(GUI.output_data_message['empty_note'])
+        if input_data == 'create':
+            data_set_notes = modul_upper_level.create_note()
+            # GUI.output_data(GUI.output_data_message['empty_note'])
+        if input_data == 'all notes':
+            print(data_set_notes)
+
+
 
