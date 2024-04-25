@@ -1,28 +1,15 @@
 import modul_lower_level
 import GUI
-import save_data_user
+import save_and_load_data_user
+
+
+
 
 def create_note():
     data_set_notes = create_matrix_data()
     lst_data_note = create_lst_data_note(data_set_notes)
-    save_data_user.write_data_in_file(lst_data_note)
+    save_and_load_data_user.write_data_in_file(lst_data_note)
     return True
-
-
-def search_note_by_name():
-    pass
-
-
-def read_and_output_notes():
-    pass
-
-
-def delete_note():
-    pass
-
-
-def edits_note():
-    pass
 
 
 
@@ -72,3 +59,23 @@ def create_lst_data_note(data_set_notes: list[list]) -> str:
         lst_data_note.append('<{@}>'.join(i))
     write_data = '\n'.join(lst_data_note)
     return write_data
+
+
+
+def search_note_by_name():
+    pass
+
+def search_set_notes():
+    pass
+
+def read_and_output_notes():
+    pass
+
+
+def delete_note():
+    pass
+
+
+def edits_note():
+    pass
+
