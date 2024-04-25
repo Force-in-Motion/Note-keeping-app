@@ -21,11 +21,11 @@ def starts_main_loop():
                 return
 
             if input_data == 'create':
-                data_set_notes = save_data_user.create_matrix_data()
-                if not data_set_notes:
+                note = modul_upper_level.create_note()
+                if not note:
                     GUI.output_data(GUI.output_data_message['err_save'])
             if input_data == 'all notes':
-                print(data_set_notes)
+                print(note)
             else:
                 GUI.output_data(GUI.output_data_message['err_input'])
         else:
