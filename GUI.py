@@ -82,5 +82,5 @@ def print_all_notes(matrix_note):
 
     for row in matrix_note:
         for elem in row:
-            print(f'\t\t\033[36m{elem}')
+            print(f'\t\t{elem}')
         print()

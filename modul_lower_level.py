@@ -35,11 +35,11 @@ def check_and_create_name_note(lst_data_note: list) -> bool or str:
     """
     name_note = ''
     while name_note == '':
-        name_note = GUI.input_data('Введите название заметки >> ')
+        name_note = GUI.input_data('\033[36mВведите название заметки >>\033[0m ')
         if name_note == 'stop':
             return 'stop'
         if checks_input_for_empty_str(name_note):
-            lst_data_note.append(f'Название заметки: {name_note}')
+            lst_data_note.append(f'\033[36mНазвание заметки:\033[0m {name_note}')
             return True
         else:
             GUI.output_data(GUI.output_data_message['empty_note'])
@@ -54,13 +54,13 @@ def check_and_create_importance_note(lst_data_note: list) -> bool or str:
     """
     importance = ''
     while importance != 'important' or importance == 'not important':
-        importance = GUI.input_data('Укажите важность заметки >> ')
+        importance = GUI.input_data('\033[36mУкажите важность заметки >>\033[0m ')
         if checks_input_for_empty_str(importance):
             if importance == 'stop':
                 return 'stop'
 
             if importance == 'important' or importance == 'not important':
-                lst_data_note.append(f'Важность заметки: {importance}')
+                lst_data_note.append(f'\033[36mВажность заметки:\033[0m {importance}')
                 return True
             else:
                 GUI.output_data(GUI.output_data_message['err_input'])
@@ -78,11 +78,11 @@ def check_and_create_text_note(lst_data_note: list) -> bool or str:
     """
     text_note = ''
     while text_note == '':
-        text_note = GUI.input_data('Введите текст заметки >> ')
+        text_note = GUI.input_data('\033[36mВведите текст заметки >>\033[0m ')
         if text_note == 'stop':
             return 'stop'
         if checks_input_for_empty_str(text_note):
-            lst_data_note.append(f'Текст заметки: {text_note}')
+            lst_data_note.append(f'\033[36mТекст заметки:\033[0m {text_note}')
             return True
         else:
             GUI.output_data(GUI.output_data_message['empty_note'])
