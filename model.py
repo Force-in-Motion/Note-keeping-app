@@ -17,8 +17,7 @@ def distributes_input_data_user(input_data):
                 return
 
             if input_data == 'search':
-                search_note = GUI.input_data(GUI.output_data_message['srch_note'])
-                modul_upper_level.search_note_by_name(search_note)
+                search_note = modul_upper_level.search_note_by_name()
                 GUI.output_data(search_note)
                 return
 

@@ -21,12 +21,22 @@ def create_note():
         return True
 
     except Exception as e:
-        
+
         GUI.output_data(GUI.output_data_message['err_save'])
         return False
 
 def search_note_by_name():
-    pass
+    search_note = GUI.input_data(GUI.output_data_message['srch_note'])
+    matrix_note = save_and_load_data_user.load_data()
+    if modul_lower_level.search_input_name_in_matrix_note(search_note, matrix_note):
+        return search_note
+    else:
+        GUI.output_data(GUI.output_data_message['err_search'])
+
+
+
+
+
 
 
 

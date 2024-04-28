@@ -120,6 +120,11 @@ def create_write_data(lst_data_note):
     return write_data
 
 
+def search_input_name_in_matrix_note(search_note, matrix_note):
+    if checks_input_for_empty_str(search_note):
 
-
+        for row in matrix_note:
+            if search_note in row:
+                search_note = row
+    return search_note
 
