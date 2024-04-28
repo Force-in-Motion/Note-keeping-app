@@ -4,6 +4,7 @@ import model
 
 def run_program():
     GUI.print_output_menu()
+
     starts_main_loop()
 
 

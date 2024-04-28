@@ -91,7 +91,7 @@ def check_and_create_text_note(lst_data_note: list) -> bool or str:
 
 
 
-def create_lst_data_note() -> list:
+def create_lst_data_note() -> list or bool:
     """
     Создает список элементов заметки в виде строк
     :return: Возвращает список элементов заметки
@@ -123,11 +123,11 @@ def create_write_data(lst_data_note):
 
 
 
-# def create_matrix_note(write_data):
-#     data_file = write_data.split('\n')
-#
-#     matrix_note = []
-#
-#     for i in range(0, len(data_file), 1):
-#         matrix_note.append(data_file[i].split('<{@}>'))
-#     return matrix_note
+def create_matrix_note(write_data):
+    data_file = write_data.split('\n')
+
+    matrix_note = []
+
+    for i in range(0, len(data_file), 1):
+        matrix_note.append(data_file[i].split('<{@}>'))
+    return matrix_note
