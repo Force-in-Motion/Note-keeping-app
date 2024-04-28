@@ -22,7 +22,7 @@ output_data_message = {'greetings': """\033[36mПриветствую Вас!
                'empty_note': '\033[36mПустая строка не может быть принята, введите данные\033[0m',
                'err_input': '\033[36mЯ пока не могу это обработать, введите команду из предложенных\033[0m',
                'err_search': '\033[36mЗаметка с таким названием отсутствует, введите другое или создайте новую\033[0m',
-
+               'err_save': '\033[36mПри сохранении возникла ошибка\033[0m',
 
                }
 
@@ -77,7 +77,12 @@ def output_data(message) -> str:
     print()
 
 
-def print_all_notes(matrix_note):
+def print_all_notes(matrix_note: list[list]) -> None:
+    """
+    Выводит в консоль все заметки пользователя
+    :param matrix_note: Пренимает матрицу заметок
+    :return: None
+    """
     output_data(output_data_message['disp_all_notes'])
 
     for row in matrix_note:
