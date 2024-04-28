@@ -15,11 +15,10 @@ def create_note():
     return True
 
 
-def search_note_by_name(search_note, matrix_note):
+def search_note_by_name():
     pass
 
-def search_set_notes(matrix_note):
-    pass
+
 
 def read_and_output_notes():
     pass

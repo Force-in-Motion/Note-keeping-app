@@ -39,7 +39,7 @@ def check_and_create_name_note(lst_data_note: list) -> bool or str:
         if name_note == 'stop':
             return 'stop'
         if checks_input_for_empty_str(name_note):
-            lst_data_note.append(name_note)
+            lst_data_note.append(f'Название заметки: {name_note}')
             return True
         else:
             GUI.output_data(GUI.output_data_message['empty_note'])
@@ -60,7 +60,7 @@ def check_and_create_importance_note(lst_data_note: list) -> bool or str:
                 return 'stop'
 
             if importance == 'important' or importance == 'not important':
-                lst_data_note.append(importance)
+                lst_data_note.append(f'Важность заметки: {importance}')
                 return True
             else:
                 GUI.output_data(GUI.output_data_message['err_input'])
@@ -82,13 +82,11 @@ def check_and_create_text_note(lst_data_note: list) -> bool or str:
         if text_note == 'stop':
             return 'stop'
         if checks_input_for_empty_str(text_note):
-            lst_data_note.append(text_note)
+            lst_data_note.append(f'Текст заметки: {text_note}')
             return True
         else:
             GUI.output_data(GUI.output_data_message['empty_note'])
             continue
-
-
 
 
 def create_lst_data_note() -> list or bool:
@@ -123,11 +121,5 @@ def create_write_data(lst_data_note):
 
 
 
-def create_matrix_note(write_data):
-    data_file = write_data.split('\n')
 
-    matrix_note = []
 
-    for i in range(0, len(data_file), 1):
-        matrix_note.append(data_file[i].split('<{@}>'))
-    return matrix_note

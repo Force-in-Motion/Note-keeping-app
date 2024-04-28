@@ -1,6 +1,7 @@
 import GUI
 import modul_lower_level
 import modul_upper_level
+import save_and_load_data_user
 
 
 def distributes_input_data_user(input_data):
@@ -11,8 +12,8 @@ def distributes_input_data_user(input_data):
                 return
 
             if input_data == 'all notes':
-                set_notes = modul_upper_level.search_set_notes()
-                GUI.output_data(set_notes)
+                matrix_note = save_and_load_data_user.load_data()
+                GUI.print_all_notes(matrix_note)
                 return
 
             if input_data == 'search':

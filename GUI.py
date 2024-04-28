@@ -15,6 +15,7 @@ output_data_message = {'greetings': """Приветствую Вас!
                'del_note': 'Введите название заметки, которую следует удалить',
                'ed_note': 'Введите название закметки, которую следует редактировать',
                'srch_note': 'Введите название закметки, которую следует найти',
+               'disp_all_notes': 'Список ваших заметок',
                'del': 'Ваша заметка успешно удалена',
                'off': 'Приложение завершило свою работу',
                'empty_note': 'Пустая строка не может быть принята, введите данные',
@@ -75,4 +76,13 @@ def output_data(message) -> str:
     """
     color_text_output()
     print(message)
-    print()
+
+
+
+def print_all_notes(matrix_note):
+    output_data(output_data_message['disp_all_notes'])
+
+    for row in matrix_note:
+        for elem in row:
+            print(f'{elem}')
+        print()
