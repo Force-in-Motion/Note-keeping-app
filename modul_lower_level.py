@@ -21,7 +21,7 @@ def check_commands(input_data: str) -> bool:
     :param input_data: Пренимает вводимые данные
     :return: True или False
     """
-    if input_data == 'create' or input_data == 'search' or input_data == 'all notes' or input_data == 'delete' or input_data == 'edit':
+    if input_data == 'create' or input_data == 'search' or input_data == 'all notes' or input_data == 'delete' or input_data == 'edit' or input_data == 'info':
         return True
     else:
         return False

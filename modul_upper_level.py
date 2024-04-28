@@ -12,6 +12,7 @@ def create_note():
 
     save_and_load_data_user.write_data_in_file(write_data)
 
+    GUI.output_data(GUI.output_data_message['save'])
     return True
 
 

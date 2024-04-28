@@ -33,7 +33,9 @@ def distributes_input_data_user(input_data):
                 modul_upper_level.edits_note(edits_note)
                 GUI.output_data(GUI.output_data_message['edited'])
                 return
-
+            if input_data == 'info':
+                GUI.print_output_menu()
+                return
         else:
             GUI.output_data(GUI.output_data_message['err_input'])
             return
