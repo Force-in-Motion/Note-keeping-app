@@ -7,8 +7,11 @@ import save_and_load_data_user
 
 def create_note():
     lst_data_note = modul_lower_level.create_lst_data_note()
+
     write_data = modul_lower_level.create_write_data(lst_data_note)
+
     save_and_load_data_user.write_data_in_file(write_data)
+
     return True
 
 

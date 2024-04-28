@@ -1,5 +1,5 @@
 import GUI
-
+import save_and_load_data_user
 
 
 def checks_input_for_empty_str(input_data) -> bool:
@@ -14,6 +14,7 @@ def checks_input_for_empty_str(input_data) -> bool:
     else:
         return False
 
+
 def check_commands(input_data: str) -> bool:
     """
     Сравнивает вводимые данные с предложенными командами и возвращает True если такая команда существует или False если такой команды нет
@@ -25,7 +26,13 @@ def check_commands(input_data: str) -> bool:
     else:
         return False
 
-def check_and_create_name_note(lst_data_note):
+
+def check_and_create_name_note(lst_data_note: list) -> bool or str:
+    """
+    Запрашивает название заметки и осуществляет проверки, если проверки пройдены то добавляет название заметки в список
+    :param lst_data_note: Пренимает список
+    :return: Возвращет True если название заметки успешно добавлено в список или строку 'stop' если пользователь ввел эту команду
+    """
     name_note = ''
     while name_note == '':
         name_note = GUI.input_data('Введите название заметки >> ')
@@ -39,7 +46,12 @@ def check_and_create_name_note(lst_data_note):
             continue
 
 
-def check_and_create_importance_note(lst_data_note):
+def check_and_create_importance_note(lst_data_note: list) -> bool or str:
+    """
+    Запрашивает важность заметки и осуществляет проверки, если проверки пройдены то добавляет важность заметки в список
+    :param lst_data_note: Пренимает список
+    :return: Возвращет True если важность заметки успешно добавлена в список или строку 'stop' если пользователь ввел эту команду
+    """
     importance = ''
     while importance != 'important' or importance == 'not important':
         importance = GUI.input_data('Укажите важность заметки >> ')
@@ -58,7 +70,12 @@ def check_and_create_importance_note(lst_data_note):
             continue
 
 
-def check_and_create_text_note(lst_data_note):
+def check_and_create_text_note(lst_data_note: list) -> bool or str:
+    """
+    Запрашивает текст заметки и осуществляет проверки, если проверки пройдены то добавляет текст заметки в список
+    :param lst_data_note: Пренимает список
+    :return: Возвращет True если текст заметки успешно добавлен в список или строку 'stop' если пользователь ввел эту команду
+    """
     text_note = ''
     while text_note == '':
         text_note = GUI.input_data('Введите текст заметки >> ')
