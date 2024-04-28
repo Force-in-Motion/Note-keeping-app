@@ -40,7 +40,8 @@ def load_data() -> list[list]:
     matrix_note = []
 
     for i in range(0, len(data_notes_from_file), 1):
-        matrix_note.append(data_notes_from_file[i].split('<{@}>'))
+        if data_notes_from_file[i] != '':
+            matrix_note.append(data_notes_from_file[i].split('<{@}>'))
 
     return matrix_note
 
