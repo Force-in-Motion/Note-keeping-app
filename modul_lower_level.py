@@ -2,8 +2,6 @@ import GUI
 
 
 
-
-
 def checks_input_for_empty_str(input_data) -> bool:
     """
     Выполняет проверку на пустую строку полученных данных, возвращает Тру если строка не пустая, в противном случае вернет Фолс
@@ -16,6 +14,64 @@ def checks_input_for_empty_str(input_data) -> bool:
     else:
         return False
 
+def check_commands(input_data: str) -> bool:
+    """
+    Сравнивает вводимые данные с предложенными командами и возвращает True если такая команда существует или False если такой команды нет
+    :param input_data: Пренимает вводимые данные
+    :return: True или False
+    """
+    if input_data == 'create' or input_data == 'search' or input_data == 'all notes' or input_data == 'delete' or input_data == 'edit':
+        return True
+    else:
+        return False
+
+def check_and_create_name_note(lst_data_note):
+    name_note = ''
+    while name_note == '':
+        name_note = GUI.input_data('Введите название заметки >> ')
+        if name_note == 'stop':
+            return 'stop'
+        if checks_input_for_empty_str(name_note):
+            lst_data_note.append(name_note)
+            return True
+        else:
+            GUI.output_data(GUI.output_data_message['empty_note'])
+            continue
+
+
+def check_and_create_importance_note(lst_data_note):
+    importance = ''
+    while importance != 'important' or importance == 'not important':
+        importance = GUI.input_data('Укажите важность заметки >> ')
+        if checks_input_for_empty_str(importance):
+            if importance == 'stop':
+                return 'stop'
+
+            if importance == 'important' or importance == 'not important':
+                lst_data_note.append(importance)
+                return True
+            else:
+                GUI.output_data(GUI.output_data_message['err_input'])
+                continue
+        else:
+            GUI.output_data(GUI.output_data_message['empty_note'])
+            continue
+
+
+def check_and_create_text_note(lst_data_note):
+    text_note = ''
+    while text_note == '':
+        text_note = GUI.input_data('Введите текст заметки >> ')
+        if text_note == 'stop':
+            return 'stop'
+        if checks_input_for_empty_str(text_note):
+            lst_data_note.append(text_note)
+            return True
+        else:
+            GUI.output_data(GUI.output_data_message['empty_note'])
+            continue
+
+
 
 
 def create_lst_data_note() -> list:
@@ -24,58 +80,30 @@ def create_lst_data_note() -> list:
     :return: Возвращает список элементов заметки
     """
     lst_data_note = []
-    while True:
-        name_note = GUI.input_data('Введите название заметки >> ')
-        if name_note == 'stop':
-            return
-        if checks_input_for_empty_str(name_note):
-            lst_data_note.append(name_note)
-        else:
-            GUI.output_data(GUI.output_data_message['empty_note'])
-            continue
 
-        importance = GUI.input_data('Укажите важность заметки >> ')
-        if importance == 'stop':
-            return
-        if checks_input_for_empty_str(importance):
-            lst_data_note.append(importance)
-        else:
-            GUI.output_data(GUI.output_data_message['empty_note'])
-            continue
-
-        text_note = GUI.input_data('Введите текст заметки >> ')
-        if importance == 'stop':
-            return
-        if checks_input_for_empty_str(text_note):
-            lst_data_note.append(text_note)
-        else:
-            GUI.output_data(GUI.output_data_message['empty_note'])
-            continue
-
+    name_note = check_and_create_name_note(lst_data_note)
+    if name_note == 'stop':
+        return
+    importance = check_and_create_importance_note(lst_data_note)
+    if importance == 'stop':
+        return
+    text_note = check_and_create_text_note(lst_data_note)
+    if text_note == 'stop':
+        return
+    else:
         return lst_data_note
 
 
-def adds_symbol_between_elems_note(lst_data_note):
+
+def create_write_data(lst_data_note):
     """
     Добавляет между элементами списка служебный символ, по которому в дальнейшем будут делиться элементы заметки
     :param lst_data_note:
     :return:
     """
-    lst_data_separated_by_symbol = []
-    for i in lst_data_note:
-        lst_data_note.append('<{@}>'.join(i))
-
-    return lst_data_separated_by_symbol
-
-
-def create_write_data(lst_data_separated_by_symbol) -> str:
-    """
-    Добавляет в конце каждого списка \n чтобы потом это дело удобно считывать в матрицу
-    :param lst_data_separated_by_symbol: Пренимает список элементов заметки, деленных служебным символом
-    :return:
-    """
-    write_data = '\n'.join(lst_data_separated_by_symbol)
+    write_data = '<{@}>'.join(lst_data_note)
     return write_data
+
 
 
 # def create_matrix_note(write_data):

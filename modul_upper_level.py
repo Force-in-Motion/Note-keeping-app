@@ -7,11 +7,8 @@ import save_and_load_data_user
 
 def create_note():
     lst_data_note = modul_lower_level.create_lst_data_note()
-    lst_data_separated_by_symbol = modul_lower_level.adds_symbol_between_elems_note(lst_data_note)
-    print(lst_data_separated_by_symbol)
-    write_data = modul_lower_level.create_write_data(lst_data_separated_by_symbol)
+    write_data = modul_lower_level.create_write_data(lst_data_note)
     save_and_load_data_user.write_data_in_file(write_data)
-    print(save_and_load_data_user.write_data_in_file(write_data))
     return True
 
 
