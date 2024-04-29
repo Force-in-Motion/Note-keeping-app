@@ -36,8 +36,8 @@ def check_and_create_name_note(lst_data_note: list) -> bool or str:
     name_note = ''
     while name_note == '':
         name_note = GUI.input_data('\033[36mВведите название заметки >>\033[0m ')
-        if name_note == 'stop':
-            return 'stop'
+        if name_note == 'back':
+            return 'back'
         if checks_input_for_empty_str(name_note):
             lst_data_note.append(f'\033[36mНазвание заметки:\033[0m {name_note}')
             return True
@@ -56,8 +56,8 @@ def check_and_create_importance_note(lst_data_note: list) -> bool or str:
     while importance != 'important' or importance == 'not important':
         importance = GUI.input_data('\033[36mУкажите важность заметки >>\033[0m ')
         if checks_input_for_empty_str(importance):
-            if importance == 'stop':
-                return 'stop'
+            if importance == 'back':
+                return 'back'
 
             if importance == 'important' or importance == 'not important':
                 lst_data_note.append(f'\033[36mВажность заметки:\033[0m {importance}')
@@ -79,8 +79,8 @@ def check_and_create_text_note(lst_data_note: list) -> bool or str:
     text_note = ''
     while text_note == '':
         text_note = GUI.input_data('\033[36mВведите текст заметки >>\033[0m ')
-        if text_note == 'stop':
-            return 'stop'
+        if text_note == 'back':
+            return 'back'
         if checks_input_for_empty_str(text_note):
             lst_data_note.append(f'\033[36mТекст заметки:\033[0m {text_note}')
             return True
@@ -97,13 +97,13 @@ def create_lst_data_note() -> list or bool:
     lst_data_note = []
 
     name_note = check_and_create_name_note(lst_data_note)
-    if name_note == 'stop':
+    if name_note == 'back':
         return
     importance = check_and_create_importance_note(lst_data_note)
-    if importance == 'stop':
+    if importance == 'back':
         return
     text_note = check_and_create_text_note(lst_data_note)
-    if text_note == 'stop':
+    if text_note == 'back':
         return
     else:
         return lst_data_note
@@ -120,9 +120,12 @@ def create_write_data(lst_data_note):
     return write_data
 
 
-def search_data(matrix_note):
+def search_note_in_matrix_data(matrix_note): # Реализовать остановку программы 'back'
     while True:
         input_data = GUI.input_data(GUI.output_data_message['srch_note'])
+
+        if input_data == 'back':
+            return
 
         if checks_input_for_empty_str(input_data):
             flag = False
@@ -136,3 +139,17 @@ def search_data(matrix_note):
                 GUI.output_data(GUI.output_data_message['err_search'])
         else:
             GUI.output_data(GUI.output_data_message['empty_note'])
+
+
+def dell_note_in_matrix_data(input_data, matrix_note):
+    for i in range(0, len(matrix_note), 1):
+        if matrix_note[i] == input_data:
+            del matrix_note[i]
+        return matrix_note
+
+
+def transforms_matrix_in_str(matrix_lst_note):
+    for i in range(0, len(matrix_lst_note), 1):
+        matrix_lst_note[i] = '<{@}>'.join(matrix_lst_note[i])
+    write_data = '\n'.join(matrix_lst_note)
+    return write_data

@@ -28,6 +28,11 @@ def write_data_in_file(write_data: str):
         file.close()
 
 
+def new_data_write_in_file(write_data):
+    file = open('notes.txt', 'w', encoding='utf-8')
+    file.write(f'\n{write_data}')
+    file.close()
+
 
 
 def load_data() -> list[list]:
