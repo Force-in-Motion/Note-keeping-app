@@ -39,9 +39,9 @@ def delete_note():
 
     del_note = modul_lower_level.search_note_in_matrix_data(matrix_note)
 
-    matrix_lst_note = modul_lower_level.dell_note_in_matrix_data(del_note, matrix_note)
+    matrix_with_del_lst = modul_lower_level.dell_note_in_matrix_data(del_note, matrix_note)
 
-    write_data = modul_lower_level.transforms_matrix_in_str(matrix_lst_note)
+    write_data = modul_lower_level.transforms_matrix_in_str(matrix_with_del_lst)
 
     save_and_load_data_user.new_data_write_in_file(write_data)
 

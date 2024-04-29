@@ -124,8 +124,8 @@ def search_note_in_matrix_data(matrix_note): # Реализовать остан
     while True:
         input_data = GUI.input_data(GUI.output_data_message['srch_note'])
 
-        if input_data == 'back':
-            return
+        # if input_data == 'back':
+        #     return
 
         if checks_input_for_empty_str(input_data):
             flag = False
@@ -145,11 +145,11 @@ def dell_note_in_matrix_data(input_data, matrix_note):
     for i in range(0, len(matrix_note), 1):
         if matrix_note[i] == input_data:
             del matrix_note[i]
-        return matrix_note
+            return matrix_note
 
 
-def transforms_matrix_in_str(matrix_lst_note):
-    for i in range(0, len(matrix_lst_note), 1):
-        matrix_lst_note[i] = '<{@}>'.join(matrix_lst_note[i])
-    write_data = '\n'.join(matrix_lst_note)
+def transforms_matrix_in_str(matrix_with_del_lst):
+    for i in range(0, len(matrix_with_del_lst), 1):
+        matrix_with_del_lst[i] = '<{@}>'.join(matrix_with_del_lst[i])
+    write_data = '\n'.join(matrix_with_del_lst)
     return write_data
