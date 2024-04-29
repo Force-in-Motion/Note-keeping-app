@@ -18,7 +18,7 @@ def distributes_input_data_user(input_data):
 
             if input_data == 'search':
                 search_note = modul_upper_level.search_note_by_name()
-                GUI.print_all_notes(search_note)
+                GUI.print_search_note(search_note)
                 return
 
             if input_data == 'delete':
