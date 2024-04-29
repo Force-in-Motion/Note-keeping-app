@@ -28,7 +28,12 @@ def write_data_in_file(write_data: str):
         file.close()
 
 
-def new_data_write_in_file(write_data):
+def new_data_write_in_file(write_data: str):
+    """
+    Перезаписывает все заметки в файле после удаления искомой заметки
+    :param write_data: Пренимает данные в виде строки и разбивает их по "\n"
+    :return:
+    """
     file = open('notes.txt', 'w', encoding='utf-8')
     file.write(f'\n{write_data}')
     file.close()

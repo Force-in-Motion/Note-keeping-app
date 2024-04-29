@@ -35,17 +35,22 @@ def search_note_by_name():
 
 
 def delete_note():
-    matrix_note = save_and_load_data_user.load_data()
+    try:
+        matrix_note = save_and_load_data_user.load_data()
 
-    del_note = modul_lower_level.search_note_in_matrix_data(matrix_note)
+        del_note = modul_lower_level.search_note_in_matrix_data(matrix_note)
 
-    matrix_with_del_lst = modul_lower_level.dell_note_in_matrix_data(del_note, matrix_note)
+        matrix_with_del_lst = modul_lower_level.dell_note_in_matrix_data(del_note, matrix_note)
 
-    write_data = modul_lower_level.transforms_matrix_in_str(matrix_with_del_lst)
+        write_data = modul_lower_level.transforms_matrix_in_str(matrix_with_del_lst)
 
-    save_and_load_data_user.new_data_write_in_file(write_data)
+        save_and_load_data_user.new_data_write_in_file(write_data)
 
-    return True
+        return True
+    except Exception as e:
+
+        GUI.output_data(GUI.output_data_message['err_del'])
+        return False
 
 
 
