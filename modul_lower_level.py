@@ -120,7 +120,12 @@ def create_write_data(lst_data_note):
     return write_data
 
 
-def search_note_in_matrix_data(matrix_note): # Реализовать остановку программы 'back'
+def search_note_in_matrix_data(matrix_note: list[list]) -> list: # Реализовать остановку программы 'back'
+    """
+    Внутри себя запрашивает у пользователя название заметки, проводит проверки и если они возвращают True то перебирает матрицу и находят нужный список, содержащий элементы искомой заметки
+    :param matrix_note: Пренимает матрицу заметок
+    :return: Возвращает список, содержащий элементы искомой заметки
+    """
     while True:
         input_data = GUI.input_data(GUI.output_data_message['srch_note'])
 
@@ -141,15 +146,28 @@ def search_note_in_matrix_data(matrix_note): # Реализовать остан
             GUI.output_data(GUI.output_data_message['empty_note'])
 
 
-def dell_note_in_matrix_data(input_data, matrix_note):
+def dell_note_in_matrix_data(del_note, matrix_note: str and list[list]) -> list[list]:
+    """
+    Обходит полученную матрицу и сравнивает каждый вложенный список с полученным списком, который требуется удалить и если они равны то удаляет его
+    :param del_note: Пренимает в виде списка заметку, которую требуется удалить
+    :param matrix_note: Матрица списков, содержащих элементы сохраненных заметок
+    :return: Возвращает матрицу с удаленным списком
+    """
     for i in range(0, len(matrix_note), 1):
-        if matrix_note[i] == input_data:
+        if matrix_note[i] == del_note:
             del matrix_note[i]
+
             return matrix_note
 
 
 def transforms_matrix_in_str(matrix_with_del_lst):
+    """
+    Обходит все списки матрицы и разделяет их элементы служебным символом, затем разделяет списки матрицы "\n"
+    :param matrix_with_del_lst: Пренимает матрицу элементов с удаленным списком
+    :return: Возвращает строку, готовыю к записи в файл
+    """
     for i in range(0, len(matrix_with_del_lst), 1):
         matrix_with_del_lst[i] = '<{@}>'.join(matrix_with_del_lst[i])
     write_data = '\n'.join(matrix_with_del_lst)
+
     return write_data

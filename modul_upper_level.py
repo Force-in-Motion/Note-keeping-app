@@ -8,7 +8,7 @@ import save_and_load_data_user
 def create_note():
     """
     Создает заметку пользователя и записывает ее в файл
-    :return: True
+    :return: True или False
     """
     try:
         lst_data_note = modul_lower_level.create_lst_data_note()
@@ -27,14 +27,23 @@ def create_note():
 
 
 def search_note_by_name():
-        matrix_note = save_and_load_data_user.load_data()
+    """
+    Выполняет поиск искомой заметки
+    :return: Возвращает искомую заметку
+    """
 
-        search_note = modul_lower_level.search_note_in_matrix_data(matrix_note)
+    matrix_note = save_and_load_data_user.load_data()
 
-        return search_note
+    search_note = modul_lower_level.search_note_in_matrix_data(matrix_note)
+
+    return search_note
 
 
 def delete_note():
+    """
+    Выполняет удаление искомой заметки
+    :return: True или False
+    """
     try:
         matrix_note = save_and_load_data_user.load_data()
 
