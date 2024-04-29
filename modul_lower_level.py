@@ -120,3 +120,16 @@ def create_write_data(lst_data_note):
     return write_data
 
 
+def search_input_name_in_matrix_note(search_note, matrix_note):
+    if checks_input_for_empty_str(search_note):
+        flag = False
+        for i in range(0, len(matrix_note), 1):
+            for j in range(0, len(matrix_note[i]), 1):
+                if search_note in matrix_note[i][j]:
+                    search_note = matrix_note[i]
+                    flag = True
+                    return search_note
+        if not flag:
+            GUI.output_data(GUI.output_data_message['err_search'])
+    else:
+        GUI.output_data(GUI.output_data_message['empty_note'])

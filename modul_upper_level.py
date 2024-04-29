@@ -25,24 +25,26 @@ def create_note():
         GUI.output_data(GUI.output_data_message['err_save'])
         return False
 
+
 def search_note_by_name():
+    matrix_note = save_and_load_data_user.load_data()
     while True:
         search_note = GUI.input_data(GUI.output_data_message['srch_note'])
-        matrix_note = save_and_load_data_user.load_data()
 
         if search_note == 'stop':
             return
         if modul_lower_level.checks_input_for_empty_str(search_note):
-
-            for row in matrix_note:
-                if search_note in row:
-                    search_note = row
-                    return search_note
-                else:
-                    GUI.output_data(GUI.output_data_message['err_search'])
+            flag = True
+            for i in range(0, len(matrix_note), 1):
+                for j in range(0, len(matrix_note[i]), 1):
+                    if search_note in matrix_note[i][j]:
+                        search_note = matrix_note[i]
+                        flag = True
+                        return search_note
+            if not flag:
+                GUI.output_data(GUI.output_data_message['err_search'])
         else:
             GUI.output_data(GUI.output_data_message['empty_note'])
-
 
 
 

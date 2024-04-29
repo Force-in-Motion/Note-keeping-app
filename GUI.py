@@ -16,6 +16,7 @@ output_data_message = {'greetings': """\033[36mПриветствую Вас!
                'del_note': '\033[36mВведите название заметки, которую следует удалить\033[0m',
                'ed_note': '\033[36mВведите название заметки, которую следует редактировать\033[0m',
                'srch_note': '\033[36mВведите название заметки, которую следует найти\033[0m',
+               'desired_note': '\033[36mВаша заметка имеет следующее содержание :\033[0m',
                'disp_all_notes': '\033[36mСписок ваших заметок :\033[0m',
                'del': '\033[36mВаша заметка успешно удалена\033[0m',
                'off': '\033[36mПриложение завершило свою работу\033[0m',
@@ -89,3 +90,16 @@ def print_all_notes(matrix_note: list[list]) -> None:
         for elem in row:
             print(f'\t\t{elem}')
         print()
+
+
+def print_all_notes(search_note: list[list]) -> None:
+    """
+    Выводит в консоль искомую заметку пользователя
+    :param matrix_note: Пренимает список, содержащий все эелементы заметки пользователя
+    :return: None
+    """
+    output_data(output_data_message['desired_note'])
+
+    for elem in search_note:
+        print(f'\t\t{elem}')
+    print()
