@@ -27,37 +27,24 @@ def create_note():
 
 
 def search_note_by_name(): # Реализовать остановку программы 'stop'
-    matrix_note = save_and_load_data_user.load_data()
-    while True:
-        search_note = GUI.input_data(GUI.output_data_message['srch_note'])
+        matrix_note = save_and_load_data_user.load_data()
 
-        if search_note == 'stop':
-            return
-        if modul_lower_level.checks_input_for_empty_str(search_note):
-            flag = False
-            for i in range(0, len(matrix_note), 1):
-                for j in range(0, len(matrix_note[i]), 1):
-                    if search_note in matrix_note[i][j]:
-                        search_note = matrix_note[i]
-                        flag = True
-                        return search_note
-            if not flag:
-                GUI.output_data(GUI.output_data_message['err_search'])
-        else:
-            GUI.output_data(GUI.output_data_message['empty_note'])
+        search_note = modul_lower_level.search_data(matrix_note)
+
+        return search_note
 
 
+def delete_note():
+    try:
+        matrix_note = save_and_load_data_user.load_data()
+        print(matrix_note)
+        del_note = modul_lower_level.search_data(matrix_note)
+        print(del_note)
+        del del_note
 
-
-
-
-
-def read_and_output_notes():
-    pass
-
-
-def delete_note(del_note, matrix_note):
-    pass
+        return True
+    except Exception as e:
+        GUI.output_data(GUI.output_data_message['err_del'])
 
 
 def edits_note(edits_note, matrix_note):

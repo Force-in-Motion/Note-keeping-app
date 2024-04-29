@@ -25,7 +25,7 @@ output_data_message = {'greetings': """\033[36mПриветствую Вас!
                'err_search': '\033[36mЗаметка с таким названием отсутствует, введите другое или создайте новую\033[0m',
                'err_save': '\033[36mПри сохранении возникла ошибка\033[0m',
                'err_data': '\033[36mЧто то пошло не так \033[1m\033[33m:(\033[0m',
-
+               'err_del': 'При удалении возникла ошибка',
                }
 
 
@@ -93,7 +93,7 @@ def print_all_notes(matrix_note: list[list]) -> None:
         print()
 
 
-def print_search_note(search_note: list[list]) -> None:
+def print_search_note(input_data: list[list]) -> None:
     """
     Выводит в консоль искомую заметку пользователя
     :param matrix_note: Пренимает список, содержащий все эелементы заметки пользователя
@@ -101,6 +101,6 @@ def print_search_note(search_note: list[list]) -> None:
     """
     output_data(output_data_message['desired_note'])
 
-    for elem in search_note:
+    for elem in input_data:
         print(f'\t\t{elem}')
     print()
