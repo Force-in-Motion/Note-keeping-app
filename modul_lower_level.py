@@ -120,4 +120,3 @@ def create_write_data(lst_data_note):
     return write_data
 
 
-
