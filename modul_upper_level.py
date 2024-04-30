@@ -63,8 +63,11 @@ def delete_note():
 
 
 
-def edits_note(edits_note, matrix_note):
-    pass
+def edits_note():
+    matrix_note = save_and_load_data_user.load_data()
 
+    edit_note = modul_lower_level.search_note_in_matrix_data(matrix_note)
+
+    modul_lower_level.requests_and_processes_edit_data_note(edit_note)
 
 

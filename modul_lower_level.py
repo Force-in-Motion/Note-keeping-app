@@ -171,3 +171,48 @@ def transforms_matrix_in_str(matrix_with_del_lst):
     write_data = '\n'.join(matrix_with_del_lst)
 
     return write_data
+
+
+def requests_and_processes_edit_data_note(edit_note):
+    print(edit_note)
+    while True:
+        input_data = GUI.input_data(GUI.output_data_message['editor'])
+
+        if input_data == 'back':
+            return
+
+        if checks_input_for_empty_str(input_data):
+
+            if input_data == 'name' or input_data == 'importance' or input_data == 'text':
+                for i in range(0, len(edit_note), 1):
+                    input_data = GUI.input_data(GUI.output_data_message['new_data'])
+                    
+                    print(i)
+
+
+            else:
+                GUI.input_data(GUI.output_data_message['err_data'])
+
+        else:
+            GUI.output_data(GUI.output_data_message['empty_note'])
+
+
+# def requests_and_processes_new_name_or_text_note(input_data):
+#     while input_data == '':
+#         input_data = GUI.input_data(GUI.output_data_message['new_data'])
+#
+#         if input_data == 'back':
+#             return
+
+
+
+
+
+
+# def requests_and_processes_new_importance_note():
+#     pass
+#
+#
+# def edits_data_lst_note(edit_note, input_data):
+#     for i in range(0, len(edit_note), 1):
+#
