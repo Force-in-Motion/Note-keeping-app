@@ -26,6 +26,16 @@ def check_commands(input_data: str) -> bool:
     else:
         return False
 
+def check_importance_note():
+    while True:
+        input_data = GUI.input_data(GUI.output_data_message['new_data'])
+        if checks_input_for_empty_str(input_data):
+            if input_data == 'important' or input_data == 'not important':
+                return True
+            else:
+                GUI.output_data(GUI.output_data_message['err_input'])
+                return False
+
 
 def check_and_create_name_note(lst_data_note: list) -> bool or str:
     """
@@ -173,8 +183,9 @@ def transforms_matrix_in_str(matrix_with_del_lst):
     return write_data
 
 
-def requests_and_processes_edit_data_note(edit_note):
-    print(edit_note)
+def requests_and_processes_edit_data_note(search_note):
+    print(search_note)
+
     while True:
         input_data = GUI.input_data(GUI.output_data_message['editor'])
 
@@ -182,37 +193,34 @@ def requests_and_processes_edit_data_note(edit_note):
             return
 
         if checks_input_for_empty_str(input_data):
-
-            if input_data == 'name' or input_data == 'importance' or input_data == 'text':
-                for i in range(0, len(edit_note), 1):
-                    input_data = GUI.input_data(GUI.output_data_message['new_data'])
-                    
-                    print(i)
-
-
-            else:
-                GUI.input_data(GUI.output_data_message['err_data'])
+            edit_note = edit_data_lst_note(search_note, input_data)
+            return edit_note
 
         else:
             GUI.output_data(GUI.output_data_message['empty_note'])
 
 
-# def requests_and_processes_new_name_or_text_note(input_data):
-#     while input_data == '':
-#         input_data = GUI.input_data(GUI.output_data_message['new_data'])
-#
-#         if input_data == 'back':
-#             return
+def edit_data_lst_note(search_note, input_data):
+    for i in range(0, len(search_note), 1):
+        if input_data == 'name':
+            new_data = GUI.input_data(GUI.output_data_message['new_data'])
+            if checks_input_for_empty_str(new_data):
+                search_note[0] = new_data
+            return search_note
 
+        if input_data == 'importance':
+            if check_importance_note():
+                search_note[1] = input_data
+            return search_note
 
+        if input_data == 'text':
+            new_data = GUI.input_data(GUI.output_data_message['new_data'])
+            if checks_input_for_empty_str(new_data):
+                search_note[2] = new_data
+            return search_note
 
 
 
 
 # def requests_and_processes_new_importance_note():
 #     pass
-#
-#
-# def edits_data_lst_note(edit_note, input_data):
-#     for i in range(0, len(edit_note), 1):
-#

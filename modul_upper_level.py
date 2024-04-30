@@ -64,10 +64,15 @@ def delete_note():
 
 
 def edits_note():
-    matrix_note = save_and_load_data_user.load_data()
+    try:
+        matrix_note = save_and_load_data_user.load_data()
 
-    edit_note = modul_lower_level.search_note_in_matrix_data(matrix_note)
+        search_note = modul_lower_level.search_note_in_matrix_data(matrix_note)
 
-    modul_lower_level.requests_and_processes_edit_data_note(edit_note)
+        edit_note = modul_lower_level.requests_and_processes_edit_data_note(search_note)
 
-
+        print(edit_note)
+        return True
+    except Exception as e:
+        GUI.output_data(GUI.output_data_message['err_edit'])
+        return False
