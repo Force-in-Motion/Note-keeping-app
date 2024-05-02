@@ -35,8 +35,10 @@ def check_importance_note():
                 return new_data
             else:
                 GUI.output_data(GUI.output_data_message['err_input'])
+                continue
         else:
             GUI.output_data(GUI.output_data_message['empty_note'])
+            continue
 
 
 def check_and_create_name_note(lst_data_note: list) -> bool or str:
