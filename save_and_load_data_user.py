@@ -11,6 +11,17 @@ def read_data_in_file():
     return data_notes_from_file
 
 
+def rewrite_data_in_file(write_data: str):
+    file = open('notes.txt', 'w', encoding='utf-8')
+    file.write(f'\n{write_data}')
+    file.close()
+
+
+def add_data_in_file(write_data: str):
+    file = open('notes.txt', 'a', encoding='utf-8')
+    file.write(f'\n{write_data}')
+    file.close()
+
 def write_data_in_file(write_data: str):
     """
     Дозаписывает полученные данные в файл если он существует, либо создает файл если его нет и записывает туда данные, каждый раз полученные данные пишутся на новой строке
@@ -18,25 +29,13 @@ def write_data_in_file(write_data: str):
     :return:
     """
     try:
-        file = open('notes.txt', 'a', encoding='utf-8')
-        file.write(f'\n{write_data}')
-        file.close()
+        add_data_in_file(write_data)
+        return True
 
     except:
-        file = open('notes.txt', 'w', encoding='utf-8')
-        file.write(f'\n{write_data}')
-        file.close()
+        rewrite_data_in_file(write_data)
+        return False
 
-
-def new_data_write_in_file(write_data: str):
-    """
-    Перезаписывает все заметки в файле после удаления искомой заметки
-    :param write_data: Пренимает данные в виде строки и разбивает их по "\n"
-    :return:
-    """
-    file = open('notes.txt', 'w', encoding='utf-8')
-    file.write(f'\n{write_data}')
-    file.close()
 
 
 

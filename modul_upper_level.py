@@ -20,7 +20,7 @@ def create_note():
         GUI.output_data(GUI.output_data_message['save'])
         return True
 
-    except Exception as e:
+    except:
 
         GUI.output_data(GUI.output_data_message['err_save'])
         return False
@@ -53,10 +53,10 @@ def delete_note():
 
         write_data = modul_lower_level.transforms_matrix_in_str(matrix_with_del_lst)
 
-        save_and_load_data_user.new_data_write_in_file(write_data)
+        save_and_load_data_user.rewrite_data_in_file(write_data)
 
         return True
-    except Exception as e:
+    except:
 
         GUI.output_data(GUI.output_data_message['err_del'])
         return False
@@ -68,11 +68,12 @@ def edits_note():
         matrix_note = save_and_load_data_user.load_data()
 
         search_note = modul_lower_level.search_note_in_matrix_data(matrix_note)
-
+        print(search_note)
         edit_note = modul_lower_level.requests_and_processes_edit_data_note(search_note)
-
         print(edit_note)
+        save_and_load_data_user.rewrite_data_in_file(edit_note)
+
         return True
-    except Exception as e:
+    except:
         GUI.output_data(GUI.output_data_message['err_edit'])
         return False
