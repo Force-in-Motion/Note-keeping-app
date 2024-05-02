@@ -18,12 +18,11 @@ def create_note():
         save_and_load_data_user.write_data_in_file(write_data)
 
         GUI.output_data(GUI.output_data_message['save'])
-        return True
 
     except:
 
         GUI.output_data(GUI.output_data_message['err_save'])
-        return False
+
 
 
 def search_note_by_name():
@@ -55,11 +54,10 @@ def delete_note():
 
         save_and_load_data_user.rewrite_data_in_file(write_data)
 
-        return True
-    except:
+    except Exception:
 
         GUI.output_data(GUI.output_data_message['err_del'])
-        return False
+
 
 
 
@@ -71,9 +69,11 @@ def edits_note():
         print(search_note)
         edit_note = modul_lower_level.requests_and_processes_edit_data_note(search_note)
         print(edit_note)
-        save_and_load_data_user.rewrite_data_in_file(edit_note)
+        write_data = modul_lower_level.create_write_data(edit_note)
 
-        return True
-    except:
+        save_and_load_data_user.add_data_in_file(write_data)
+
+    except Exception:
+
         GUI.output_data(GUI.output_data_message['err_edit'])
-        return False
+

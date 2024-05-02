@@ -27,14 +27,16 @@ def check_commands(input_data: str) -> bool:
         return False
 
 def check_importance_note():
-    while True:
+    new_data = ''
+    while new_data == 'important' or new_data == 'not important':
         new_data = GUI.input_data(GUI.input_data('\033[36mУкажите важность заметки >>\033[0m '))
         if checks_input_for_empty_str(new_data):
             if new_data == 'important' or new_data == 'not important':
                 return new_data
             else:
                 GUI.output_data(GUI.output_data_message['err_input'])
-                return False
+        else:
+            GUI.output_data(GUI.output_data_message['empty_note'])
 
 
 def check_and_create_name_note(lst_data_note: list) -> bool or str:
@@ -202,23 +204,22 @@ def requests_and_processes_edit_data_note(search_note):
 def edit_data_lst_note(search_note, input_data):
     for i in range(0, len(search_note), 1):
         if input_data == 'name':
-            print(search_note[0])
-            new_data =  GUI.input_data(GUI.output_data_message['new_data'])
+            new_data = GUI.input_data(GUI.output_data_message['new_data'])
             if checks_input_for_empty_str(new_data):
                 search_note[0] = f'\033[36mНазвание заметки:\033[0m {new_data}'
                 return search_note
 
         if input_data == 'importance':
             new_data = check_importance_note()
-            if new_data:
-                search_note[1] = f'\033[36mВажность заметки:\033[0m {new_data}'
-                return search_note
+            search_note[1] = f'\033[36mВажность заметки:\033[0m {new_data}'
+            return search_note
 
         if input_data == 'text':
             new_data = GUI.input_data(GUI.output_data_message['new_data'])
             if checks_input_for_empty_str(new_data):
                 search_note[2] = f'\033[36mТекст заметки:\033[0m {new_data}'
                 return search_note
+
 
 
 
