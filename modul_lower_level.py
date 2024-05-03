@@ -135,19 +135,17 @@ def search_note_in_matrix_data(matrix_note: list[list]) -> list: # Реализ�
     while True:
         input_data = GUI.input_data(GUI.output_data_message['srch_note'])
 
-        if input_data == 'back':
-            return 'back'
-
         if checks_input_for_empty_str(input_data):
-            flag = False
-            for i in range(0, len(matrix_note), 1):
-                for j in range(0, len(matrix_note[i]), 1):
-                    if input_data in matrix_note[i][j]:
-                        input_data = matrix_note[i]
-                        flag = True
-                        return input_data
-            if not flag:
-                GUI.output_data(GUI.output_data_message['err_search'])
+            if input_data == 'back':
+                return 'back'
+            else:
+                for i in range(0, len(matrix_note), 1):
+                    for j in range(0, len(matrix_note[i]), 1):
+                        if input_data in matrix_note[i][j]:
+                            input_data = matrix_note[i]
+                            return input_data
+                        else:
+                            GUI.output_data(GUI.output_data_message['err_search'])
         else:
             GUI.output_data(GUI.output_data_message['empty_note'])
 
@@ -189,13 +187,10 @@ def create_edited_matrix_note(search_note, matrix_note):
             if input_data == 'name' or input_data == 'importance' or input_data == 'text':
 
                 edit_note = edit_data_lst_note(search_note, input_data)
-                print(edit_note)
 
-                matrix_with_del_lst = dell_note_in_matrix_data(search_note, matrix_note)
-                print(matrix_with_del_lst)
+                matrix_with_edited_lst = dell_note_in_matrix_data(search_note, matrix_note)
 
-                matrix_with_edited_lst = matrix_with_del_lst + edit_note
-                print(matrix_with_edited_lst)
+                matrix_with_edited_lst.append(edit_note)
 
                 return matrix_with_edited_lst
 
@@ -225,3 +220,6 @@ def edit_data_lst_note(search_note, input_data):
             return search_note
 
 
+def append_lst(matrix_with_del_lst, edit_note):
+    matrix_with_del_lst.append(edit_note)
+    return matrix_with_del_lst
