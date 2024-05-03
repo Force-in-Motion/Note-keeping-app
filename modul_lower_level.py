@@ -15,6 +15,17 @@ def checks_input_for_empty_str(input_data) -> bool:
         return False
 
 
+def check_input_data_in_matrix_note(input_data, matrix):
+    for i in range(0, len(matrix), 1):
+        for j in range(0, len(matrix[i]), 1):
+            if input_data in matrix[i][j]:
+                input_data = matrix[i]
+                return input_data
+            else:
+                return False
+
+
+
 def check_commands(input_data: str) -> bool:
     """
     Сравнивает вводимые данные с предложенными командами и возвращает True если такая команда существует или False если такой команды нет
@@ -139,13 +150,12 @@ def search_note_in_matrix_data(matrix_note: list[list]) -> list: # Реализ�
             if input_data == 'back':
                 return 'back'
             else:
-                for i in range(0, len(matrix_note), 1):
-                    for j in range(0, len(matrix_note[i]), 1):
-                        if input_data in matrix_note[i][j]:
-                            input_data = matrix_note[i]
-                            return input_data
-                        else:
-                            GUI.output_data(GUI.output_data_message['err_search'])
+                search_note = check_input_data_in_matrix_note(input_data, matrix_note)
+
+                if check_input_data_in_matrix_note(input_data, matrix_note):
+                    return search_note
+                else:
+                    GUI.output_data(GUI.output_data_message['err_search'])
         else:
             GUI.output_data(GUI.output_data_message['empty_note'])
 
@@ -219,7 +229,3 @@ def edit_data_lst_note(search_note, input_data):
             search_note[2] = f'\033[36mТекст заметки:\033[0m {new_data}'
             return search_note
 
-
-def append_lst(matrix_with_del_lst, edit_note):
-    matrix_with_del_lst.append(edit_note)
-    return matrix_with_del_lst
