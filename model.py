@@ -23,7 +23,6 @@ def distributes_input_data_user(input_data):
 
             if input_data == 'delete':
                 modul_upper_level.delete_note()
-                GUI.output_data(GUI.output_data_message['del'])
                 return
 
             if input_data == 'edit':

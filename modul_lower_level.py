@@ -116,13 +116,13 @@ def create_lst_data_note() -> list or bool:
 
 
 
-def create_write_data(lst_data_note):
+def create_write_data(lst):
     """
     Добавляет между элементами списка служебный символ, по которому в дальнейшем будут делиться элементы заметки
     :param lst_data_note:
     :return:
     """
-    write_data = '<{@}>'.join(lst_data_note)
+    write_data = '<{@}>'.join(lst)
     return write_data
 
 
@@ -135,8 +135,8 @@ def search_note_in_matrix_data(matrix_note: list[list]) -> list: # Реализ�
     while True:
         input_data = GUI.input_data(GUI.output_data_message['srch_note'])
 
-        # if input_data == 'back':
-        #     return
+        if input_data == 'back':
+            return 'back'
 
         if checks_input_for_empty_str(input_data):
             flag = False
@@ -152,29 +152,29 @@ def search_note_in_matrix_data(matrix_note: list[list]) -> list: # Реализ�
             GUI.output_data(GUI.output_data_message['empty_note'])
 
 
-def dell_note_in_matrix_data(del_note, matrix_note: str and list[list]) -> list[list]:
+def dell_note_in_matrix_data(del_note, matrix: str and list[list]) -> list[list]:
     """
     Обходит полученную матрицу и сравнивает каждый вложенный список с полученным списком, который требуется удалить и если они равны то удаляет его
     :param del_note: Пренимает в виде списка заметку, которую требуется удалить
     :param matrix_note: Матрица списков, содержащих элементы сохраненных заметок
     :return: Возвращает матрицу с удаленным списком
     """
-    for i in range(0, len(matrix_note), 1):
-        if matrix_note[i] == del_note:
-            del matrix_note[i]
+    for i in range(0, len(matrix), 1):
+        if matrix[i] == del_note:
+            del matrix[i]
 
-            return matrix_note
+            return matrix
 
 
-def transforms_matrix_in_str(matrix_with_del_lst):
+def transforms_matrix_in_str(matrix):
     """
     Обходит все списки матрицы и разделяет их элементы служебным символом, затем разделяет списки матрицы "\n"
     :param matrix_with_del_lst: Пренимает матрицу элементов с удаленным списком
     :return: Возвращает строку, готовыю к записи в файл
     """
-    for i in range(0, len(matrix_with_del_lst), 1):
-        matrix_with_del_lst[i] = '<{@}>'.join(matrix_with_del_lst[i])
-    write_data = '\n'.join(matrix_with_del_lst)
+    for i in range(0, len(matrix), 1):
+        matrix[i] = '<{@}>'.join(matrix[i])
+    write_data = '\n'.join(matrix)
 
     return write_data
 
@@ -194,7 +194,7 @@ def create_edited_matrix_note(search_note, matrix_note):
                 matrix_with_del_lst = dell_note_in_matrix_data(search_note, matrix_note)
                 print(matrix_with_del_lst)
 
-                matrix_with_edited_lst = matrix_with_del_lst.append(edit_note)
+                matrix_with_edited_lst = matrix_with_del_lst + edit_note
                 print(matrix_with_edited_lst)
 
                 return matrix_with_edited_lst
@@ -223,8 +223,5 @@ def edit_data_lst_note(search_note, input_data):
             new_data = requests_and_check_text_note()
             search_note[2] = f'\033[36mТекст заметки:\033[0m {new_data}'
             return search_note
-
-
-
 
 

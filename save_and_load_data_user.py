@@ -30,11 +30,10 @@ def write_data_in_file(write_data: str):
     """
     try:
         add_data_in_file(write_data)
-        return True
 
     except:
         rewrite_data_in_file(write_data)
-        return False
+
 
 
 
