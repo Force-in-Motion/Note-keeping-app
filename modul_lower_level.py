@@ -35,13 +35,11 @@ def requests_and_check_name_note() -> bool or str:
     name_note = ''
     while name_note == '':
         name_note = GUI.input_data('\033[36mВведите название заметки >>\033[0m ')
-
-        if name_note == 'back':
-            return 'back'
-
         if checks_input_for_empty_str(name_note):
-            return name_note
-
+            if name_note == 'back':
+                return 'back'
+            else:
+                return name_note
         else:
             GUI.output_data(GUI.output_data_message['empty_note'])
             continue
@@ -79,10 +77,11 @@ def requests_and_check_text_note() -> bool or str:
     text_note = ''
     while text_note == '':
         text_note = GUI.input_data('\033[36mВведите текст заметки >>\033[0m ')
-        if text_note == 'back':
-            return 'back'
         if checks_input_for_empty_str(text_note):
-            return text_note
+            if text_note == 'back':
+                return 'back'
+            else:
+                return text_note
         else:
             GUI.output_data(GUI.output_data_message['empty_note'])
             continue
@@ -180,7 +179,7 @@ def transforms_matrix_in_str(matrix_with_del_lst):
     return write_data
 
 
-def create_edited_note(search_note, matrix_note):
+def create_edited_matrix_note(search_note, matrix_note):
     while True:
         input_data = GUI.input_data(GUI.output_data_message['editor'])
         if checks_input_for_empty_str(input_data):
@@ -190,10 +189,13 @@ def create_edited_note(search_note, matrix_note):
             if input_data == 'name' or input_data == 'importance' or input_data == 'text':
 
                 edit_note = edit_data_lst_note(search_note, input_data)
+                print(edit_note)
 
                 matrix_with_del_lst = dell_note_in_matrix_data(search_note, matrix_note)
+                print(matrix_with_del_lst)
 
                 matrix_with_edited_lst = matrix_with_del_lst.append(edit_note)
+                print(matrix_with_edited_lst)
 
                 return matrix_with_edited_lst
 
@@ -209,9 +211,8 @@ def edit_data_lst_note(search_note, input_data):
     for i in range(0, len(search_note), 1):
         if input_data == 'name':
             new_data = requests_and_check_name_note()
-            if checks_input_for_empty_str(new_data):
-                search_note[0] = f'\033[36mНазвание заметки:\033[0m {new_data}'
-                return search_note
+            search_note[0] = f'\033[36mНазвание заметки:\033[0m {new_data}'
+            return search_note
 
         if input_data == 'importance':
             new_data = requests_and_check_importance_note()
@@ -220,9 +221,8 @@ def edit_data_lst_note(search_note, input_data):
 
         if input_data == 'text':
             new_data = requests_and_check_text_note()
-            if checks_input_for_empty_str(new_data):
-                search_note[2] = f'\033[36mТекст заметки:\033[0m {new_data}'
-                return search_note
+            search_note[2] = f'\033[36mТекст заметки:\033[0m {new_data}'
+            return search_note
 
 
 

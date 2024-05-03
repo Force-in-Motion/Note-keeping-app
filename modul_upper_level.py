@@ -67,9 +67,13 @@ def edits_note():
 
         search_note = modul_lower_level.search_note_in_matrix_data(matrix_note)
 
-        edit_note = modul_lower_level.create_edited_note(search_note, matrix_note)
+        matrix_with_edited_lst = modul_lower_level.create_edited_matrix_note(search_note, matrix_note)
 
-        write_data = modul_lower_level.create_write_data(edit_note)
+        # print(matrix_with_edited_lst)
+
+        write_data = modul_lower_level.transforms_matrix_in_str(matrix_with_edited_lst)
+
+        # print(write_data)
 
         save_and_load_data_user.rewrite_data_in_file(write_data)
 
