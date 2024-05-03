@@ -212,7 +212,13 @@ def create_edited_matrix_note(search_note, matrix_note):
 
 
 
-def edit_data_lst_note(search_note, input_data):
+def edit_data_lst_note(search_note, input_data: list and str) -> list:
+    """
+    Заменяет элементы списка на новые в зависимости от полученных данных
+    :param search_note: Пренимает список, содержащий исходные элементы заметки
+    :param input_data: Пренимает строку, которая поясняет какой именно элемент списка будет меняться на новый
+    :return: Возвращает измененный список
+    """
     for i in range(0, len(search_note), 1):
         if input_data == 'name':
             new_data = requests_and_check_name_note()
