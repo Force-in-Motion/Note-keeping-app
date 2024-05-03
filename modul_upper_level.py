@@ -67,7 +67,7 @@ def edits_note():
 
         search_note = modul_lower_level.search_note_in_matrix_data(matrix_note)
 
-        edit_note = modul_lower_level.requests_and_processes_edit_data_note(search_note)
+        edit_note = modul_lower_level.create_edited_note(search_note)
 
         write_data = modul_lower_level.create_write_data(edit_note)
 

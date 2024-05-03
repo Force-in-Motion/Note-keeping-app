@@ -26,56 +26,43 @@ def check_commands(input_data: str) -> bool:
     else:
         return False
 
-def check_importance_note():
-    new_data = ''
-    while new_data == 'important' or new_data == 'not important':
-        new_data = GUI.input_data(GUI.input_data('\033[36mУкажите важность заметки >>\033[0m '))
-        if checks_input_for_empty_str(new_data):
-            if new_data == 'important' or new_data == 'not important':
-                return new_data
-            else:
-                GUI.output_data(GUI.output_data_message['err_input'])
-                continue
-        else:
-            GUI.output_data(GUI.output_data_message['empty_note'])
-            continue
 
-
-def check_and_create_name_note(lst_data_note: list) -> bool or str:
+def requests_and_check_name_note() -> bool or str:
     """
-    Запрашивает название заметки и осуществляет проверки, если проверки пройдены то добавляет название заметки в список
-    :param lst_data_note: Пренимает список
-    :return: Возвращет True если название заметки успешно добавлено в список или строку 'stop' если пользователь ввел эту команду
+    Запрашивает название заметки и осуществляет проверки, если проверки пройдены то возвращает название заметки
+    :return: Возвращет название заметки если все проверки успешно пройдены или строку 'back' если пользователь ввел эту команду
     """
     name_note = ''
     while name_note == '':
         name_note = GUI.input_data('\033[36mВведите название заметки >>\033[0m ')
+
         if name_note == 'back':
             return 'back'
+
         if checks_input_for_empty_str(name_note):
-            lst_data_note.append(f'\033[36mНазвание заметки:\033[0m {name_note}')
-            return True
+            return name_note
+
         else:
             GUI.output_data(GUI.output_data_message['empty_note'])
             continue
 
 
-def check_and_create_importance_note(lst_data_note: list) -> bool or str:
+def requests_and_check_importance_note() -> bool or str:
     """
-    Запрашивает важность заметки и осуществляет проверки, если проверки пройдены то добавляет важность заметки в список
-    :param lst_data_note: Пренимает список
-    :return: Возвращет True если важность заметки успешно добавлена в список или строку 'stop' если пользователь ввел эту команду
+    Запрашивает важность заметки и осуществляет проверки, если проверки пройдены то возвращает выбранную пользователем важность заметки
+    :return: Возвращет важность или строку 'back' если пользователь ввел эту команду
     """
     importance = ''
     while importance != 'important' or importance == 'not important':
         importance = GUI.input_data('\033[36mУкажите важность заметки >>\033[0m ')
+
         if checks_input_for_empty_str(importance):
             if importance == 'back':
                 return 'back'
 
             if importance == 'important' or importance == 'not important':
-                lst_data_note.append(f'\033[36mВажность заметки:\033[0m {importance}')
-                return True
+                return importance
+
             else:
                 GUI.output_data(GUI.output_data_message['err_input'])
                 continue
@@ -84,11 +71,10 @@ def check_and_create_importance_note(lst_data_note: list) -> bool or str:
             continue
 
 
-def check_and_create_text_note(lst_data_note: list) -> bool or str:
+def requests_and_check_text_note() -> bool or str:
     """
-    Запрашивает текст заметки и осуществляет проверки, если проверки пройдены то добавляет текст заметки в список
-    :param lst_data_note: Пренимает список
-    :return: Возвращет True если текст заметки успешно добавлен в список или строку 'stop' если пользователь ввел эту команду
+    Запрашивает текст заметки и осуществляет проверки, если проверки пройдены то возвращает текст заметки
+    :return: Возвращет текст заметки если проверки успешно пройдены или строку 'stop' если пользователь ввел эту команду
     """
     text_note = ''
     while text_note == '':
@@ -96,8 +82,7 @@ def check_and_create_text_note(lst_data_note: list) -> bool or str:
         if text_note == 'back':
             return 'back'
         if checks_input_for_empty_str(text_note):
-            lst_data_note.append(f'\033[36mТекст заметки:\033[0m {text_note}')
-            return True
+            return text_note
         else:
             GUI.output_data(GUI.output_data_message['empty_note'])
             continue
@@ -110,17 +95,25 @@ def create_lst_data_note() -> list or bool:
     """
     lst_data_note = []
 
-    name_note = check_and_create_name_note(lst_data_note)
+    name_note = requests_and_check_name_note()
     if name_note == 'back':
         return
-    importance = check_and_create_importance_note(lst_data_note)
+    else:
+        lst_data_note.append(f'\033[36mНазвание заметки:\033[0m {name_note}')
+
+    importance = requests_and_check_importance_note()
     if importance == 'back':
         return
-    text_note = check_and_create_text_note(lst_data_note)
+    else:
+        lst_data_note.append(f'\033[36mВажность заметки:\033[0m {importance}')
+
+    text_note = requests_and_check_text_note()
     if text_note == 'back':
         return
     else:
-        return lst_data_note
+        lst_data_note.append(f'\033[36mТекст заметки:\033[0m {text_note}')
+
+    return lst_data_note
 
 
 
@@ -187,20 +180,24 @@ def transforms_matrix_in_str(matrix_with_del_lst):
     return write_data
 
 
-def requests_and_processes_edit_data_note(search_note):
+def create_edited_note(search_note):
 
     while True:
         input_data = GUI.input_data(GUI.output_data_message['editor'])
-
-        if input_data == 'back':
-            return
-
         if checks_input_for_empty_str(input_data):
-            edit_note = edit_data_lst_note(search_note, input_data)
-            return edit_note
+            if input_data == 'back':
+                return
+
+            if input_data == 'name' or input_data == 'importance' or input_data == 'text':
+                edit_note = edit_data_lst_note(search_note, input_data)
+                return edit_note
+
+            else:
+                GUI.output_data(GUI.output_data_message['err_input'])
 
         else:
             GUI.output_data(GUI.output_data_message['empty_note'])
+
 
 
 def edit_data_lst_note(search_note, input_data):
@@ -212,7 +209,7 @@ def edit_data_lst_note(search_note, input_data):
                 return search_note
 
         if input_data == 'importance':
-            new_data = check_importance_note()
+            new_data = requests_and_check_importance_note()
             search_note[1] = f'\033[36mВажность заметки:\033[0m {new_data}'
             return search_note
 
@@ -226,5 +223,3 @@ def edit_data_lst_note(search_note, input_data):
 
 
 
-# def requests_and_processes_new_importance_note():
-#     pass
