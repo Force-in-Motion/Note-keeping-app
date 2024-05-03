@@ -54,7 +54,7 @@ def delete_note():
 
         save_and_load_data_user.rewrite_data_in_file(write_data)
 
-    except Exception:
+    except:
 
         GUI.output_data(GUI.output_data_message['err_del'])
 
@@ -67,13 +67,15 @@ def edits_note():
 
         search_note = modul_lower_level.search_note_in_matrix_data(matrix_note)
 
-        edit_note = modul_lower_level.create_edited_note(search_note)
+        edit_note = modul_lower_level.create_edited_note(search_note, matrix_note)
 
         write_data = modul_lower_level.create_write_data(edit_note)
 
-        save_and_load_data_user.add_data_in_file(write_data)
+        save_and_load_data_user.rewrite_data_in_file(write_data)
 
-    except Exception:
+        GUI.output_data(GUI.output_data_message['edited'])
+
+    except:
 
         GUI.output_data(GUI.output_data_message['err_edit'])
 

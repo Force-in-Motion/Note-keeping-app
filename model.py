@@ -29,7 +29,6 @@ def distributes_input_data_user(input_data):
             if input_data == 'edit':
                 GUI.output_data(GUI.output_data_message['edit_menu'])
                 modul_upper_level.edits_note()
-                GUI.output_data(GUI.output_data_message['edited'])
                 return
 
             if input_data == 'info':

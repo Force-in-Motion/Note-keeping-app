@@ -180,8 +180,7 @@ def transforms_matrix_in_str(matrix_with_del_lst):
     return write_data
 
 
-def create_edited_note(search_note):
-
+def create_edited_note(search_note, matrix_note):
     while True:
         input_data = GUI.input_data(GUI.output_data_message['editor'])
         if checks_input_for_empty_str(input_data):
@@ -189,8 +188,14 @@ def create_edited_note(search_note):
                 return
 
             if input_data == 'name' or input_data == 'importance' or input_data == 'text':
+
                 edit_note = edit_data_lst_note(search_note, input_data)
-                return edit_note
+
+                matrix_with_del_lst = dell_note_in_matrix_data(search_note, matrix_note)
+
+                matrix_with_edited_lst = matrix_with_del_lst.append(edit_note)
+
+                return matrix_with_edited_lst
 
             else:
                 GUI.output_data(GUI.output_data_message['err_input'])
@@ -203,7 +208,7 @@ def create_edited_note(search_note):
 def edit_data_lst_note(search_note, input_data):
     for i in range(0, len(search_note), 1):
         if input_data == 'name':
-            new_data = GUI.input_data(GUI.output_data_message['new_data'])
+            new_data = requests_and_check_name_note()
             if checks_input_for_empty_str(new_data):
                 search_note[0] = f'\033[36mНазвание заметки:\033[0m {new_data}'
                 return search_note
@@ -214,7 +219,7 @@ def edit_data_lst_note(search_note, input_data):
             return search_note
 
         if input_data == 'text':
-            new_data = GUI.input_data(GUI.output_data_message['new_data'])
+            new_data = requests_and_check_text_note()
             if checks_input_for_empty_str(new_data):
                 search_note[2] = f'\033[36mТекст заметки:\033[0m {new_data}'
                 return search_note
