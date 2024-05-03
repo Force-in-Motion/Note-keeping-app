@@ -6,7 +6,7 @@ import save_and_load_data_user
 
 def distributes_input_data_user(input_data):
     while True:
-        if modul_lower_level.check_commands(input_data):
+        if modul_lower_level.check_command(input_data):
             if input_data == 'create':
                 modul_upper_level.create_note()
                 return
