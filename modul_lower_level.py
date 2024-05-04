@@ -219,26 +219,20 @@ def create_edited_matrix_note(search_note, matrix_note: str and list[list]) -> l
     """
     while True:
         input_data = GUI.input_data(GUI.output_data_message['editor'])
-        if checks_input_for_empty_str(input_data):
 
-            if input_data == 'back':
-                return
-
-            if input_data == 'name' or input_data == 'importance' or input_data == 'text':
-
-                edit_note = edit_data_lst_note(search_note, input_data)
-
-                matrix_with_edited_lst = dell_note_in_matrix_data(search_note, matrix_note)
-
-                matrix_with_edited_lst.append(edit_note)
-
-                return matrix_with_edited_lst
-
-            else:
-                GUI.output_data(GUI.output_data_message['err_input'])
-
-        else:
+        if not checks_input_for_empty_str(input_data):
             GUI.output_data(GUI.output_data_message['empty_note'])
+            continue
+
+        if input_data == 'name' or input_data == 'importance' or input_data == 'text':
+            edit_note = edit_data_lst_note(search_note, input_data)
+            matrix_with_edited_lst = dell_note_in_matrix_data(search_note, matrix_note)
+            matrix_with_edited_lst.append(edit_note)
+            return matrix_with_edited_lst
+        else:
+            GUI.output_data(GUI.output_data_message['err_input'])
+
+
 
 
 
