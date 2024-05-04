@@ -1,3 +1,4 @@
+import datetime
 import GUI
 import save_and_load_data_user
 
@@ -43,6 +44,19 @@ def check_command(input_data: str) -> bool:
     else:
         return False
 
+# def check_name_note(name_note):
+#     matrix = save_and_load_data_user.load_data()
+#     for i in range(0, len(matrix), 1):
+#         for j in range(0, len(matrix[i]), 1):
+#             for k in range(0, len(matrix[i][j]), 1):
+#                 print(matrix[i][j])
+#                 if name_note in matrix[i][j]:
+#                     return True
+#                 else:
+#                     return False
+
+
+
 
 def requests_and_check_name_note() -> bool or str:
     """
@@ -52,14 +66,14 @@ def requests_and_check_name_note() -> bool or str:
     name_note = ''
     while name_note == '':
         name_note = GUI.input_data('\033[36mВведите название заметки >>\033[0m ')
-        if checks_input_for_empty_str(name_note):
-            if name_note == 'back':
-                return 'back'
-            else:
-                return name_note
-        else:
+        if not checks_input_for_empty_str(name_note):
             GUI.output_data(GUI.output_data_message['empty_note'])
             continue
+        if name_note == 'back':
+            return 'back'
+        else:
+            return name_note
+
 
 
 def requests_and_check_importance_note() -> bool or str:
@@ -71,19 +85,20 @@ def requests_and_check_importance_note() -> bool or str:
     while importance != 'important' or importance == 'not important':
         importance = GUI.input_data('\033[36mУкажите важность заметки >>\033[0m ')
 
-        if checks_input_for_empty_str(importance):
-            if importance == 'back':
-                return 'back'
-
-            if importance == 'important' or importance == 'not important':
-                return importance
-
-            else:
-                GUI.output_data(GUI.output_data_message['err_input'])
-                continue
-        else:
+        if not checks_input_for_empty_str(importance):
             GUI.output_data(GUI.output_data_message['empty_note'])
             continue
+
+        if importance == 'back':
+            return 'back'
+
+        if importance == 'important' or importance == 'not important':
+            return importance
+
+        else:
+            GUI.output_data(GUI.output_data_message['err_input'])
+            continue
+
 
 
 def requests_and_check_text_note() -> bool or str:
@@ -94,14 +109,14 @@ def requests_and_check_text_note() -> bool or str:
     text_note = ''
     while text_note == '':
         text_note = GUI.input_data('\033[36mВведите текст заметки >>\033[0m ')
-        if checks_input_for_empty_str(text_note):
-            if text_note == 'back':
-                return 'back'
-            else:
-                return text_note
-        else:
+        if not checks_input_for_empty_str(text_note):
             GUI.output_data(GUI.output_data_message['empty_note'])
             continue
+        if text_note == 'back':
+            return 'back'
+        else:
+            return text_note
+
 
 
 def create_lst_data_note() -> list or bool:
@@ -109,6 +124,7 @@ def create_lst_data_note() -> list or bool:
     Создает список элементов заметки в виде строк
     :return: Возвращает список элементов заметки
     """
+    date_create_note = datetime.date.today()
     lst_data_note = []
 
     name_note = requests_and_check_name_note()
@@ -128,6 +144,7 @@ def create_lst_data_note() -> list or bool:
         return
     else:
         lst_data_note.append(f'\033[36mТекст заметки:\033[0m {text_note}')
+        lst_data_note.append(f'\033[36mДата создания заметки:\033[0m {date_create_note}')
 
     return lst_data_note
 
@@ -152,20 +169,18 @@ def search_note_in_matrix_data(matrix_note: list[list]) -> list: # Реализ�
     while True:
         input_data = GUI.input_data(GUI.output_data_message['srch_note'])
 
-        if checks_input_for_empty_str(input_data):
-            if input_data == 'back':
-                return 'back'
-
-            else:
-                search_note = check_input_data_in_matrix_note(input_data, matrix_note)
-
-                if check_input_data_in_matrix_note(input_data, matrix_note):
-                    return search_note
-
-                else:
-                    GUI.output_data(GUI.output_data_message['err_search'])
-        else:
+        if not checks_input_for_empty_str(input_data):
             GUI.output_data(GUI.output_data_message['empty_note'])
+            continue
+
+        search_note = check_input_data_in_matrix_note(input_data, matrix_note)
+
+        if not check_input_data_in_matrix_note(input_data, matrix_note):
+            GUI.output_data(GUI.output_data_message['err_search'])
+            continue
+        return search_note
+
+
 
 
 def dell_note_in_matrix_data(del_note, matrix: str and list[list]) -> list[list]:

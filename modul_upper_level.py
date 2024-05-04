@@ -30,12 +30,14 @@ def search_note_by_name():
     Выполняет поиск искомой заметки
     :return: Возвращает искомую заметку
     """
+    try:
+        matrix_note = save_and_load_data_user.load_data()
 
-    matrix_note = save_and_load_data_user.load_data()
+        search_note = modul_lower_level.search_note_in_matrix_data(matrix_note)
 
-    search_note = modul_lower_level.search_note_in_matrix_data(matrix_note)
-
-    return search_note
+        return search_note
+    except:
+        GUI.output_data(GUI.output_data_message['err_search_output'])
 
 
 def delete_note():
