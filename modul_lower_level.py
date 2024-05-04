@@ -44,16 +44,16 @@ def check_command(input_data: str) -> bool:
     else:
         return False
 
-# def check_name_note(name_note):
-#     matrix = save_and_load_data_user.load_data()
-#     for i in range(0, len(matrix), 1):
-#         for j in range(0, len(matrix[i]), 1):
-#             for k in range(0, len(matrix[i][j]), 1):
-#                 print(matrix[i][j])
-#                 if name_note in matrix[i][j]:
-#                     return True
-#                 else:
-#                     return False
+
+
+def check_name_note(name_note):
+    matrix = save_and_load_data_user.load_data()
+    for i in range(0, len(matrix), 1):
+        for j in range(0, len(matrix[i]), 1):
+            if name_note in matrix[i][j]:
+                return True
+            else:
+                return False
 
 
 
@@ -63,12 +63,18 @@ def requests_and_check_name_note() -> bool or str:
     Запрашивает название заметки и осуществляет проверки, если проверки пройдены то возвращает название заметки
     :return: Возвращет название заметки если все проверки успешно пройдены или строку 'back' если пользователь ввел эту команду
     """
-    name_note = ''
-    while name_note == '':
+
+    while True:
         name_note = GUI.input_data('\033[36mВведите название заметки >>\033[0m ')
+
         if not checks_input_for_empty_str(name_note):
             GUI.output_data(GUI.output_data_message['empty_note'])
             continue
+
+        if check_name_note(name_note):
+            GUI.output_data(GUI.output_data_message['err_name_note'])
+            continue
+
         if name_note == 'back':
             return 'back'
         else:
