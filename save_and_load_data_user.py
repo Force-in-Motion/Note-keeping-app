@@ -2,7 +2,11 @@ import os
 
 
 
-def check_file():
+def check_file() -> bool:
+    """
+    Проверяет наличие файла по указанному пути, в данном случае в папке
+    :return: True или False
+    """
     if os.path.isfile('notes.txt'):
         return True
     else:
