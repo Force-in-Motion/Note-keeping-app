@@ -23,13 +23,12 @@ def check_input_data_in_matrix_note(input_data, matrix: str and list[list]) -> s
     :param matrix: Пренимает матрицу
     :return:
     """
-    for i in range(0, len(matrix), 1):
-        for j in range(0, len(matrix[i]), 1):
-            if input_data in matrix[i][j]:
-                input_data = matrix[i]
-                return input_data
-            else:
-                return False
+    for row in matrix:
+        for elem in row:
+            if input_data == elem:
+                note = row
+                return note
+
 
 
 
@@ -180,9 +179,9 @@ def search_note_in_matrix_data(matrix_note: list[list]) -> list or bool: # Ре�
             GUI.output_data(GUI.output_data_message['empty_note'])
             continue
 
-        search_note = check_input_data_in_matrix_note(input_data, matrix_note)
+        search_note = check_input_data_in_matrix_note(f'\033[36mНазвание заметки:\033[0m {input_data}', matrix_note)
 
-        if not check_input_data_in_matrix_note(input_data, matrix_note):
+        if not search_note:
             GUI.output_data(GUI.output_data_message['err_search'])
             continue
 
