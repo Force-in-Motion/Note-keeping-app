@@ -45,14 +45,14 @@ def check_command(input_data: str) -> bool:
 
 
 
-def check_name_note(name_note):
+def check_name_note(input_data):
     matrix = save_and_load_data_user.load_data()
-    for i in range(0, len(matrix), 1):
-        for j in range(0, len(matrix[i]), 1):
-            if name_note in matrix[i][j]:
+    for row in matrix:
+        for elem in row:
+            if input_data == elem:
                 return True
             else:
-                return False
+                continue
 
 
 
@@ -72,13 +72,14 @@ def requests_and_check_name_note() -> bool or str:
             continue
 
         if save_and_load_data_user.check_file():
-            if not check_name_note(name_note):
-                return name_note
-
-            else:
+            if check_name_note(f'\033[36mНазвание заметки:\033[0m {name_note}'):
                 GUI.output_data(GUI.output_data_message['err_name_note'])
                 continue
 
+            else:
+                return name_note
+        else:
+            return name_note
 
 def requests_and_check_importance_note() -> bool or str:
     """
@@ -88,13 +89,12 @@ def requests_and_check_importance_note() -> bool or str:
     importance = ''
     while importance != 'important' or importance == 'not important':
         importance = GUI.input_data('\033[36mУкажите важность заметки >>\033[0m ')
+        if importance == 'back':
+            return 'back'
 
         if not checks_input_for_empty_str(importance):
             GUI.output_data(GUI.output_data_message['empty_note'])
             continue
-
-        if importance == 'back':
-            return 'back'
 
         if importance == 'important' or importance == 'not important':
             return importance
@@ -102,6 +102,7 @@ def requests_and_check_importance_note() -> bool or str:
         else:
             GUI.output_data(GUI.output_data_message['err_input'])
             continue
+
 
 
 
@@ -133,19 +134,19 @@ def create_lst_data_note() -> list or bool:
 
     name_note = requests_and_check_name_note()
     if name_note == 'back':
-        return
+        return 'back'
     else:
         lst_data_note.append(f'\033[36mНазвание заметки:\033[0m {name_note}')
 
     importance = requests_and_check_importance_note()
     if importance == 'back':
-        return
+        return 'back'
     else:
         lst_data_note.append(f'\033[36mВажность заметки:\033[0m {importance}')
 
     text_note = requests_and_check_text_note()
     if text_note == 'back':
-        return
+        return 'back'
     else:
         lst_data_note.append(f'\033[36mТекст заметки:\033[0m {text_note}')
         lst_data_note.append(f'\033[36mДата создания заметки:\033[0m {date_create_note}')
@@ -238,6 +239,8 @@ def create_edited_matrix_note(search_note, matrix_note: str and list[list]) -> l
 
         if input_data == 'name' or input_data == 'importance' or input_data == 'text':
             edit_note = edit_data_lst_note(search_note, input_data)
+            if edit_note == 'back':
+                return 'back'
             matrix_with_edited_lst = dell_note_in_matrix_data(search_note, matrix_note)
             matrix_with_edited_lst.append(edit_note)
             return matrix_with_edited_lst
@@ -248,7 +251,7 @@ def create_edited_matrix_note(search_note, matrix_note: str and list[list]) -> l
 
 
 
-def edit_data_lst_note(search_note, input_data: list and str) -> list:
+def edit_data_lst_note(search_note, input_data: list and str) -> list or str:
     """
     Заменяет элементы списка на новые в зависимости от полученных данных
     :param search_note: Пренимает список, содержащий исходные элементы заметки
@@ -257,17 +260,26 @@ def edit_data_lst_note(search_note, input_data: list and str) -> list:
     """
     for i in range(0, len(search_note), 1):
         if input_data == 'name':
-            new_data = requests_and_check_name_note()
-            search_note[0] = f'\033[36mНазвание заметки:\033[0m {new_data}'
-            return search_note
+            new_name = requests_and_check_name_note()
+            if new_name == 'back':
+                return 'back'
+            else:
+                search_note[0] = f'\033[36mНазвание заметки:\033[0m {new_name}'
+                return search_note
 
         if input_data == 'importance':
-            new_data = requests_and_check_importance_note()
-            search_note[1] = f'\033[36mВажность заметки:\033[0m {new_data}'
-            return search_note
+            new_importance = requests_and_check_importance_note()
+            if new_importance == 'back':
+                return 'back'
+            else:
+                search_note[1] = f'\033[36mВажность заметки:\033[0m {new_importance}'
+                return search_note
 
         if input_data == 'text':
-            new_data = requests_and_check_text_note()
-            search_note[2] = f'\033[36mТекст заметки:\033[0m {new_data}'
-            return search_note
+            new_text = requests_and_check_text_note()
+            if new_text == 'back':
+                return 'back'
+            else:
+                search_note[2] = f'\033[36mТекст заметки:\033[0m {new_text}'
+                return search_note
 

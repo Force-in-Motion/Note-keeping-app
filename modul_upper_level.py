@@ -12,6 +12,9 @@ def create_note():
     """
     try:
         lst_data_note = modul_lower_level.create_lst_data_note()
+        if lst_data_note == 'back':
+            GUI.output_data(GUI.output_data_message['back_menu'])
+            return
 
         write_data = modul_lower_level.create_write_data(lst_data_note)
 
