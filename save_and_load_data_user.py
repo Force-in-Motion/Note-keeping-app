@@ -1,7 +1,5 @@
 import os
 
-
-
 def check_file() -> bool:
     """
     Проверяет наличие файла по указанному пути, в данном случае в папке
@@ -13,7 +11,11 @@ def check_file() -> bool:
         return False
 
 
-def check_len_file():
+def check_len_file() -> bool:
+    """
+    Проверяет наличие данных в файле
+    :return: True или False
+    """
     matrix = load_data()
     if len(matrix) != 0:
         return True
@@ -33,12 +35,22 @@ def read_data_in_file():
 
 
 def rewrite_data_in_file(write_data: str):
+    """
+    Перезаписывает имеющийся файл, если файл отсутствует, то создает его
+    :param write_data: Пренимает данные для записи
+    :return:
+    """
     file = open('notes.txt', 'w', encoding='utf-8')
     file.write(f'\n{write_data}')
     file.close()
 
 
 def add_data_in_file(write_data: str):
+    """
+    Добавляет данные в файл
+    :param write_data: Пренимает данные для записи
+    :return:
+    """
     file = open('notes.txt', 'a', encoding='utf-8')
     file.write(f'\n{write_data}')
     file.close()

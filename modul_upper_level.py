@@ -2,12 +2,9 @@ import modul_lower_level
 import GUI
 import save_and_load_data_user
 
-
-
-
 def create_note():
     """
-    Создает заметку пользователя и записывает ее в файл
+    Создает заметку пользователя и записывает ее в файл или выкидывает исключение
     :return: True или False
     """
     try:
@@ -27,10 +24,11 @@ def create_note():
         GUI.output_data(GUI.output_data_message['err_save'])
 
 
-
-
-
 def search_all_notes():
+    """
+    Выводит в консоль все заметки по запросу пользователя если они существуют или выкидывает исключение
+    :return:
+    """
     try:
         if not save_and_load_data_user.check_len_file():
             GUI.output_data(GUI.output_data_message['err_file'])
@@ -44,7 +42,7 @@ def search_all_notes():
 
 def search_note_by_name():
     """
-    Выполняет поиск искомой заметки
+    Выполняет поиск искомой заметки если она существует или выкидывает исключение
     :return: Возвращает искомую заметку
     """
     if not save_and_load_data_user.check_file():
@@ -63,10 +61,9 @@ def search_note_by_name():
         GUI.print_search_note(search_note)
 
 
-
 def delete_note():
     """
-    Выполняет удаление искомой заметки
+    Выполняет удаление искомой заметки если она существует или выкидывает исключение
     :return: True или False
     """
     try:
@@ -93,9 +90,11 @@ def delete_note():
         GUI.output_data(GUI.output_data_message['err_del'])
 
 
-
-
 def edits_note():
+    """
+    Редактирует заметку пользователя если она существует или выкидывает исключение
+    :return:
+    """
     try:
         if not save_and_load_data_user.check_file():
             GUI.output_data(GUI.output_data_message['err_file'])
