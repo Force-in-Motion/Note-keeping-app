@@ -1,3 +1,20 @@
+import os
+
+
+
+def check_file():
+    if os.path.isfile('notes.txt'):
+        return True
+    else:
+        return False
+
+
+def check_len_file():
+    matrix = load_data()
+    if len(matrix) != 0:
+        return True
+    else:
+        return False
 
 
 def read_data_in_file():

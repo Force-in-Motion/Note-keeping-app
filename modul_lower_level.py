@@ -70,15 +70,18 @@ def requests_and_check_name_note() -> bool or str:
         if not checks_input_for_empty_str(name_note):
             GUI.output_data(GUI.output_data_message['empty_note'])
             continue
-
-        if check_name_note(name_note):
-            GUI.output_data(GUI.output_data_message['err_name_note'])
-            continue
-
+        if save_and_load_data_user.check_file():
+            if check_name_note(name_note):
+                GUI.output_data(GUI.output_data_message['err_name_note'])
+                continue
         if name_note == 'back':
             return 'back'
         else:
             return name_note
+
+
+
+
 
 
 
@@ -166,15 +169,19 @@ def create_write_data(lst):
     return write_data
 
 
-def search_note_in_matrix_data(matrix_note: list[list]) -> list: # Реализовать остановку программы 'back'
+def search_note_in_matrix_data(matrix_note: list[list]) -> list or bool: # Реализовать остановку программы 'back'
     """
     Внутри себя запрашивает у пользователя название заметки, проводит проверки и находит нужный список, содержащий элементы искомой заметки
     :param matrix_note: Пренимает матрицу заметок
     :return: Возвращает список, содержащий элементы искомой заметки
     """
     while True:
+        if not save_and_load_data_user.check_len_file():
+            GUI.output_data(GUI.output_data_message['err_file'])
+            return
         input_data = GUI.input_data(GUI.output_data_message['srch_note'])
-
+        if input_data == 'back':
+            return
         if not checks_input_for_empty_str(input_data):
             GUI.output_data(GUI.output_data_message['empty_note'])
             continue
@@ -184,7 +191,10 @@ def search_note_in_matrix_data(matrix_note: list[list]) -> list: # Реализ�
         if not check_input_data_in_matrix_note(input_data, matrix_note):
             GUI.output_data(GUI.output_data_message['err_search'])
             continue
-        return search_note
+
+        else:
+            return search_note
+
 
 
 
@@ -216,7 +226,7 @@ def transforms_matrix_in_str(matrix):
     return write_data
 
 
-def create_edited_matrix_note(search_note, matrix_note: str and list[list]) -> list[list]:
+def create_edited_matrix_note(search_note, matrix_note: str and list[list]) -> list[list] or bool:
     """
     Редактирует матрицу заметок согласно полученным данным
     :param search_note: Пренимает список, содержащий редактированную заметку
@@ -225,6 +235,9 @@ def create_edited_matrix_note(search_note, matrix_note: str and list[list]) -> l
     """
     while True:
         input_data = GUI.input_data(GUI.output_data_message['editor'])
+
+        if input_data == 'back':
+            return
 
         if not checks_input_for_empty_str(input_data):
             GUI.output_data(GUI.output_data_message['empty_note'])

@@ -12,8 +12,7 @@ def distributes_input_data_user(input_data):
                 return
 
             if input_data == 'all notes':
-                matrix_note = save_and_load_data_user.load_data()
-                GUI.print_all_notes(matrix_note)
+                modul_upper_level.search_all_notes()
                 return
 
             if input_data == 'search':
@@ -26,7 +25,6 @@ def distributes_input_data_user(input_data):
                 return
 
             if input_data == 'edit':
-                GUI.output_data(GUI.output_data_message['edit_menu'])
                 modul_upper_level.edits_note()
                 return
 

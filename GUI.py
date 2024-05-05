@@ -1,3 +1,4 @@
+import save_and_load_data_user
 
 output_data_message = {'greetings': """\033[36mПриветствую Вас! 
         Все данные загружены 
@@ -36,6 +37,7 @@ output_data_message = {'greetings': """\033[36mПриветствую Вас!
                'err_edit': '\033[36mПри редактировании возникла ошибка!\033[0m',
                'err_file': '\033[36mФайл с заметками отсутствует, чтобы вызвать заметки с начала их создайте!\033[0m',
                'err_name_note': '\033[36mЗаметка с таким названием уже существует, введите другое название!\033[0m',
+               'err_file': '\033[36mВ вашем файле отсутствуют заметки, для начала создайте их!\033[0m',
                }
 
 
@@ -94,6 +96,9 @@ def print_all_notes(matrix_note: list[list]) -> None:
     :param matrix_note: Пренимает матрицу заметок
     :return: None
     """
+    if not save_and_load_data_user.check_len_file():
+        output_data(output_data_message['err_file'])
+        return
     output_data(output_data_message['disp_all_notes'])
 
     for row in matrix_note:
@@ -102,12 +107,15 @@ def print_all_notes(matrix_note: list[list]) -> None:
         print()
 
 
+
 def print_search_note(input_data: list[list]) -> None:
     """
     Выводит в консоль искомую заметку пользователя
     :param matrix_note: Пренимает список, содержащий все эелементы заметки пользователя
     :return: None
     """
+    if not save_and_load_data_user.check_len_file():
+        return
     output_data(output_data_message['desired_note'])
 
     for elem in input_data:

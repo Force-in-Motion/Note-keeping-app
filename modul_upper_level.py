@@ -25,6 +25,17 @@ def create_note():
 
 
 
+
+
+def search_all_notes():
+    try:
+        matrix_note = save_and_load_data_user.load_data()
+        GUI.print_all_notes(matrix_note)
+    except:
+        GUI.output_data(GUI.output_data_message['err_file'])
+
+
+
 def search_note_by_name():
     """
     Выполняет поиск искомой заметки
@@ -67,6 +78,11 @@ def delete_note():
 
 def edits_note():
     try:
+        if not save_and_load_data_user.check_len_file():
+            GUI.output_data(GUI.output_data_message['err_file'])
+            return
+        GUI.output_data(GUI.output_data_message['edit_menu'])
+
         matrix_note = save_and_load_data_user.load_data()
 
         search_note = modul_lower_level.search_note_in_matrix_data(matrix_note)
