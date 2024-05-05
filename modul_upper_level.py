@@ -54,7 +54,7 @@ def search_note_by_name():
 
     search_note = modul_lower_level.search_note_in_matrix_data(matrix_note)
     if search_note == 'back':
-        GUI.output_data(GUI.output_data_message['err_search_output'])
+        GUI.output_data(GUI.output_data_message['back_menu'])
         return
     else:
         GUI.print_search_note(search_note)
@@ -97,16 +97,26 @@ def edits_note():
         if not save_and_load_data_user.check_file():
             GUI.output_data(GUI.output_data_message['err_file'])
             return
+
         if not save_and_load_data_user.check_len_file():
             GUI.output_data(GUI.output_data_message['err_file'])
             return
+
         GUI.output_data(GUI.output_data_message['edit_menu'])
 
         matrix_note = save_and_load_data_user.load_data()
 
         search_note = modul_lower_level.search_note_in_matrix_data(matrix_note)
 
+        if search_note == 'back':
+            GUI.output_data(GUI.output_data_message['back_menu'])
+            return
+
         matrix_with_edited_lst = modul_lower_level.create_edited_matrix_note(search_note, matrix_note)
+
+        if matrix_with_edited_lst == 'back':
+            GUI.output_data(GUI.output_data_message['back_menu'])
+            return
 
         write_data = modul_lower_level.transforms_matrix_in_str(matrix_with_edited_lst)
 
