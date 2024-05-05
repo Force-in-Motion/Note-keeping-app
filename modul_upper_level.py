@@ -35,20 +35,21 @@ def search_all_notes():
         GUI.output_data(GUI.output_data_message['err_file'])
 
 
-
 def search_note_by_name():
     """
     Выполняет поиск искомой заметки
     :return: Возвращает искомую заметку
     """
-    try:
-        matrix_note = save_and_load_data_user.load_data()
 
-        search_note = modul_lower_level.search_note_in_matrix_data(matrix_note)
+    matrix_note = save_and_load_data_user.load_data()
 
-        return search_note
-    except:
+    search_note = modul_lower_level.search_note_in_matrix_data(matrix_note)
+    if search_note == 'back':
         GUI.output_data(GUI.output_data_message['err_search_output'])
+        return
+    else:
+        GUI.print_search_note(search_note)
+
 
 
 def delete_note():

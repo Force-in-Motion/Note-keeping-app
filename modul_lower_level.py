@@ -66,7 +66,8 @@ def requests_and_check_name_note() -> bool or str:
 
     while True:
         name_note = GUI.input_data('\033[36mВведите название заметки >>\033[0m ')
-
+        if name_note == 'back':
+            return 'back'
         if not checks_input_for_empty_str(name_note):
             GUI.output_data(GUI.output_data_message['empty_note'])
             continue
@@ -74,15 +75,8 @@ def requests_and_check_name_note() -> bool or str:
             if check_name_note(name_note):
                 GUI.output_data(GUI.output_data_message['err_name_note'])
                 continue
-        if name_note == 'back':
-            return 'back'
         else:
             return name_note
-
-
-
-
-
 
 
 def requests_and_check_importance_note() -> bool or str:
@@ -181,7 +175,7 @@ def search_note_in_matrix_data(matrix_note: list[list]) -> list or bool: # Ре�
             return
         input_data = GUI.input_data(GUI.output_data_message['srch_note'])
         if input_data == 'back':
-            return
+            return 'back'
         if not checks_input_for_empty_str(input_data):
             GUI.output_data(GUI.output_data_message['empty_note'])
             continue

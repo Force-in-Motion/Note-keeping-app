@@ -108,7 +108,7 @@ def print_all_notes(matrix_note: list[list]) -> None:
 
 
 
-def print_search_note(input_data: list[list]) -> None:
+def print_search_note(input_data: list[list]) -> None or bool:
     """
     Выводит в консоль искомую заметку пользователя
     :param matrix_note: Пренимает список, содержащий все эелементы заметки пользователя
