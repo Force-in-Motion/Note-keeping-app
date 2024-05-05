@@ -3,8 +3,11 @@ import GUI
 import model
 
 
-
 def run_program():
+    """
+    Выводит Приветствие и информационный блок, содержащий список команд
+    :return:
+    """
     GUI.print_output_menu()
     starts_main_loop()
 
