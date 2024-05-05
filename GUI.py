@@ -30,11 +30,11 @@ output_data_message = {'greetings': """\033[36mПриветствую Вас!
                'empty_note': '\033[36mПустая строка не может быть принята, введите данные!\033[0m',
                'err_input': '\033[36mЯ пока не могу это обработать, введите команду из предложенных!\033[0m',
                'err_search': '\033[36mЗаметка с таким названием отсутствует, введите другое или создайте новую!\033[0m',
-               'err_search_output': '\033[36mПри поиске заметки возникла ошибка\033[0m',
-               'err_save': '\033[36mПри сохранении возникла ошибка!\033[0m',
+               'err_search_output': '\033[36mПри поиске заметки возникла ошибка, вы возвращены в главное меню\033[0m',
+               'err_save': '\033[36mПри создании заметки возникла ошибка, вы возвращены в главное меню\033[0m',
                'err_data': '\033[36mВведенные данные отсутствуют, повторите ввод\033[0m',
-               'err_del': '\033[36mПри удалении возникла ошибка!\033[0m',
-               'err_edit': '\033[36mПри редактировании возникла ошибка!\033[0m',
+               'err_del': '\033[36mПри удалении возникла ошибка, вы возвращены в главное меню\033[0m',
+               'err_edit': '\033[36mПри редактировании возникла ошибка, вы возвращены в главное меню\033[0m',
                'err_file': '\033[36mФайл с заметками отсутствует, чтобы вызвать заметки с начала их создайте!\033[0m',
                'err_name_note': '\033[36mЗаметка с таким названием уже существует, введите другое название!\033[0m',
                'err_file': '\033[36mВ вашем файле отсутствуют заметки, для начала создайте их!\033[0m',
@@ -96,9 +96,6 @@ def print_all_notes(matrix_note: list[list]) -> None:
     :param matrix_note: Пренимает матрицу заметок
     :return: None
     """
-    if not save_and_load_data_user.check_len_file():
-        output_data(output_data_message['err_file'])
-        return
     output_data(output_data_message['disp_all_notes'])
 
     for row in matrix_note:
@@ -115,6 +112,7 @@ def print_search_note(input_data: list[list]) -> None or bool:
     :return: None
     """
     if not save_and_load_data_user.check_len_file():
+        output_data(output_data_message['err_file'])
         return
     output_data(output_data_message['desired_note'])
 

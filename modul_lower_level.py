@@ -63,7 +63,6 @@ def requests_and_check_name_note() -> bool or str:
     Запрашивает название заметки и осуществляет проверки, если проверки пройдены то возвращает название заметки
     :return: Возвращет название заметки если все проверки успешно пройдены или строку 'back' если пользователь ввел эту команду
     """
-
     while True:
         name_note = GUI.input_data('\033[36mВведите название заметки >>\033[0m ')
         if name_note == 'back':
@@ -170,9 +169,7 @@ def search_note_in_matrix_data(matrix_note: list[list]) -> list or bool: # Ре�
     :return: Возвращает список, содержащий элементы искомой заметки
     """
     while True:
-        if not save_and_load_data_user.check_len_file():
-            GUI.output_data(GUI.output_data_message['err_file'])
-            return
+
         input_data = GUI.input_data(GUI.output_data_message['srch_note'])
         if input_data == 'back':
             return 'back'
