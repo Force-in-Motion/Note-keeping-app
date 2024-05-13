@@ -157,3 +157,26 @@ def edits_note():
 
         GUI.output_data(GUI.output_data_message['err_edit'])
 
+
+def unloads_csv_file():
+    """
+    Выгружает имеющиеся заметки в csv файл если они имеются, либо выдает ошибку если заметки отсутствуют
+    :return:
+    """
+    try:
+        if not save_and_load_data_user.check_file():
+            GUI.output_data(GUI.output_data_message['err_file'])
+            return
+
+        if not save_and_load_data_user.check_len_file():
+            GUI.output_data(GUI.output_data_message['err_file'])
+            return
+
+        matrix_note = save_and_load_data_user.load_data()
+
+        save_and_load_data_user.write_data_in_csv(matrix_note)
+
+        GUI.output_data(GUI.output_data_message['csv'])
+
+    except:
+        GUI.output_data(GUI.output_data_message['err_csv'])

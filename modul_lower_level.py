@@ -36,7 +36,7 @@ def check_command(input_data: str) -> bool:
     :param input_data: Пренимает вводимые данные
     :return: True или False
     """
-    if input_data == 'create' or input_data == 'search' or input_data == 'all notes' or input_data == 'delete' or input_data == 'edit' or input_data == 'info' or input_data == 'sort':
+    if input_data == 'create' or input_data == 'search' or input_data == 'all notes' or input_data == 'delete' or input_data == 'edit' or input_data == 'info' or input_data == 'sort' or input_data == 'csv':
         return True
     else:
         return False
@@ -173,7 +173,7 @@ def sorted_notes_by_input_data(matrix_note: list[list]) -> list[list] or str:
             continue
 
 
-def create_write_data(lst):
+def create_write_data(lst: list):
     """
     Добавляет между элементами списка служебный символ, по которому в дальнейшем будут делиться элементы заметки
     :param lst_data_note:

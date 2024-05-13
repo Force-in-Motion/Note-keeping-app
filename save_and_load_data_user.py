@@ -1,8 +1,9 @@
 import os
+import csv
 
 def check_file() -> bool:
     """
-    Проверяет наличие файла по указанному пути, в данном случае в папке
+    Проверяет наличие файла txt по указанному пути, в данном случае в папке
     :return: True или False
     """
     if os.path.isfile('notes.txt'):
@@ -13,7 +14,7 @@ def check_file() -> bool:
 
 def check_len_file() -> bool:
     """
-    Проверяет наличие данных в файле
+    Проверяет наличие данных в файле txt
     :return: True или False
     """
     matrix = load_data()
@@ -25,7 +26,7 @@ def check_len_file() -> bool:
 
 def read_data_in_file():
     """
-    Считывает файл с данными и записывает все данные файла в переменную
+    Считывает файл txt с данными и записывает все данные файла в переменную
     :return: Возвращает все данные файла
     """
     file = open('notes.txt', 'r', encoding='utf-8')
@@ -36,7 +37,7 @@ def read_data_in_file():
 
 def rewrite_data_in_file(write_data: str):
     """
-    Перезаписывает имеющийся файл, если файл отсутствует, то создает его
+    Перезаписывает имеющийся файл txt, если файл отсутствует, то создает его
     :param write_data: Пренимает данные для записи
     :return:
     """
@@ -47,7 +48,7 @@ def rewrite_data_in_file(write_data: str):
 
 def add_data_in_file(write_data: str):
     """
-    Добавляет данные в файл
+    Добавляет данные в файл txt
     :param write_data: Пренимает данные для записи
     :return:
     """
@@ -57,7 +58,7 @@ def add_data_in_file(write_data: str):
 
 def write_data_in_file(write_data: str):
     """
-    Дозаписывает полученные данные в файл если он существует, либо создает файл если его нет и записывает туда данные, каждый раз полученные данные пишутся на новой строке
+    Дозаписывает полученные данные в файл txt если он существует, либо создает файл txt если его нет и записывает туда данные, каждый раз полученные данные пишутся на новой строке
     :param write_data: Пренимает данные в виде строки
     :return:
     """
@@ -66,6 +67,18 @@ def write_data_in_file(write_data: str):
 
     except:
         rewrite_data_in_file(write_data)
+
+
+def write_data_in_csv(write_data: list[list]):
+    """
+    Записывает полученные данные в файл в csv формате
+    :param write_data:
+    :return:
+    """
+    file = open('notes.csv', 'w', newline='')
+    writer = csv.writer(file)
+    writer.writerows(write_data)
+    file.close()
 
 
 

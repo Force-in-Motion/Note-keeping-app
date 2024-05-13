@@ -35,6 +35,10 @@ def distributes_input_data_user(input_data: str):
                 modul_upper_level.edits_note()
                 return
 
+            if input_data == 'csv':
+                modul_upper_level.unloads_csv_file()
+                return
+
             if input_data == 'info':
                 GUI.print_output_menu()
                 return
