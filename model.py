@@ -23,6 +23,9 @@ def distributes_input_data_user(input_data: str):
             if input_data == 'search':
                 modul_upper_level.search_note_by_name()
                 return
+            if input_data == 'sort':
+                modul_upper_level.sorted_notes()
+                return
 
             if input_data == 'delete':
                 modul_upper_level.delete_note()

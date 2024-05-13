@@ -61,6 +61,33 @@ def search_note_by_name():
         GUI.print_search_note(search_note)
 
 
+def sorted_notes():
+    """
+    Сортирует заметки по названию, дате создания или по важности
+    :return:
+    """
+    try:
+        if not save_and_load_data_user.check_file():
+            GUI.output_data(GUI.output_data_message['err_file'])
+            return
+
+        if not save_and_load_data_user.check_len_file():
+            GUI.output_data(GUI.output_data_message['err_file'])
+            return
+        matrix_note = save_and_load_data_user.load_data()
+
+        GUI.output_data(GUI.output_data_message['sort_menu'])
+
+        set_notes = modul_lower_level.sorted_notes_by_input_data(matrix_note)
+        if set_notes == 'back':
+            GUI.output_data(GUI.output_data_message['back_menu'])
+            return
+
+    except:
+        GUI.output_data(GUI.output_data_message['err_sort'])
+
+
+
 def delete_note():
     """
     Выполняет удаление искомой заметки если она существует или выкидывает исключение

@@ -36,7 +36,7 @@ def check_command(input_data: str) -> bool:
     :param input_data: Пренимает вводимые данные
     :return: True или False
     """
-    if input_data == 'create' or input_data == 'search' or input_data == 'all notes' or input_data == 'delete' or input_data == 'edit' or input_data == 'info':
+    if input_data == 'create' or input_data == 'search' or input_data == 'all notes' or input_data == 'delete' or input_data == 'edit' or input_data == 'info' or input_data == 'sort':
         return True
     else:
         return False
@@ -150,6 +150,27 @@ def create_lst_data_note() -> list or bool:
         lst_data_note.append(f'\033[36mДата создания заметки:\033[0m {date_create_note}')
 
     return lst_data_note
+
+def sorted_notes_by_input_data(matrix_note: list[list]) -> list[list] or str:
+    """
+    Сортирует матрицу по заданным пользователем параметрам
+    :param matrix_note: Пренимает матрицу заметок
+    :return: Возвращает сортированную матрицу заметок
+    """
+    while True:
+        input_data = GUI.input_data(GUI.output_data_message['srt'])
+
+        if input_data == 'back':
+            return 'back'
+
+        if input_data == 'not important' or input_data == 'important':
+            GUI.print_sorted_notes(matrix_note, f'\033[36mВажность заметки:\033[0m {input_data}')
+            return
+        if input_data == 'sort date' or input_data == 'sort name':
+            GUI.print_all_notes(sorted(matrix_note))
+        else:
+            GUI.output_data(GUI.output_data_message['err_input'])
+            continue
 
 
 def create_write_data(lst):
