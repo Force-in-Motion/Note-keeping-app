@@ -1,12 +1,24 @@
 import os
 import csv
 
+
+def check_app():
+    path = os.environ.get('LOCALAPPDATA') + r'\Notes User'
+
+    if not os.path.isdir(path):
+        os.mkdir(path)
+    return path
+
+
+path = check_app()
+
 def check_file() -> bool:
     """
     Проверяет наличие файла txt по указанному пути, в данном случае в папке
     :return: True или False
     """
-    if os.path.isfile('notes.txt'):
+    file = path + r'\notes.txt'
+    if os.path.isfile(file):
         return True
     else:
         return False
@@ -29,7 +41,7 @@ def read_data_in_file():
     Считывает файл txt с данными и записывает все данные файла в переменную
     :return: Возвращает все данные файла
     """
-    file = open('notes.txt', 'r', encoding='utf-8')
+    file = open(path + r'\notes.txt', 'r', encoding='utf-8')
     data_notes_from_file = file.read().split('\n')
     file.close()
     return data_notes_from_file
@@ -41,7 +53,7 @@ def rewrite_data_in_file(write_data: str):
     :param write_data: Пренимает данные для записи
     :return:
     """
-    file = open('notes.txt', 'w', encoding='utf-8')
+    file = open(path + r'\notes.txt', 'w', encoding='utf-8')
     file.write(f'\n{write_data}')
     file.close()
 
@@ -52,7 +64,7 @@ def add_data_in_file(write_data: str):
     :param write_data: Пренимает данные для записи
     :return:
     """
-    file = open('notes.txt', 'a', encoding='utf-8')
+    file = open(path + r'\notes.txt', 'a', encoding='utf-8')
     file.write(f'\n{write_data}')
     file.close()
 
@@ -75,7 +87,7 @@ def write_data_in_csv(write_data: list[list]):
     :param write_data:
     :return:
     """
-    file = open('notes.csv', 'w', newline='')
+    file = open(path + r'\notes.csv', 'w', newline='')
     writer = csv.writer(file)
     writer.writerows(write_data)
     file.close()
@@ -96,4 +108,5 @@ def load_data() -> list[list]:
             matrix_note.append(data_notes_from_file[i].split('<{@}>'))
 
     return matrix_note
+
 

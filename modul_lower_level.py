@@ -36,7 +36,7 @@ def check_command(input_data: str) -> bool:
     :param input_data: Пренимает вводимые данные
     :return: True или False
     """
-    if input_data == 'create' or input_data == 'search' or input_data == 'all notes' or input_data == 'delete' or input_data == 'edit' or input_data == 'info' or input_data == 'sort' or input_data == 'csv':
+    if input_data == 'add' or input_data == 'search' or input_data == 'all' or input_data == 'del' or input_data == 'edit' or input_data == 'info' or input_data == 'sort' or input_data == 'csv':
         return True
     else:
         return False
@@ -88,7 +88,9 @@ def requests_and_check_importance_note() -> bool or str:
     :return: Возвращет важность или строку 'back' если пользователь ввел эту команду
     """
     importance = ''
-    while importance != 'important' or importance == 'not important':
+    while importance != '+' or importance == '-':
+        GUI.output_data(GUI.output_data_message['importance_menu'])
+
         importance = GUI.input_data('\033[36mУкажите важность заметки >>\033[0m ')
         if importance == 'back':
             return 'back'
@@ -97,7 +99,7 @@ def requests_and_check_importance_note() -> bool or str:
             GUI.output_data(GUI.output_data_message['empty_note'])
             continue
 
-        if importance == 'important' or importance == 'not important':
+        if importance == '+' or importance == '-':
             return importance
 
         else:
@@ -139,8 +141,12 @@ def create_lst_data_note() -> list or bool:
     importance = requests_and_check_importance_note()
     if importance == 'back':
         return 'back'
-    else:
-        lst_data_note.append(f'\033[36mВажность заметки:\033[0m {importance}')
+
+    elif importance == '+':
+        lst_data_note.append(f'\033[36mВажность заметки:\033[0m important')
+
+    elif importance == '-':
+        lst_data_note.append(f'\033[36mВажность заметки:\033[0m not important')
 
     text_note = requests_and_check_text_note()
     if text_note == 'back':

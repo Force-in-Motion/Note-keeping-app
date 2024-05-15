@@ -12,11 +12,11 @@ def distributes_input_data_user(input_data: str):
     """
     while True:
         if modul_lower_level.check_command(input_data):
-            if input_data == 'create':
+            if input_data == 'add':
                 modul_upper_level.create_note()
                 return
 
-            if input_data == 'all notes':
+            if input_data == 'all':
                 modul_upper_level.search_all_notes()
                 return
 
@@ -27,7 +27,7 @@ def distributes_input_data_user(input_data: str):
                 modul_upper_level.sorted_notes()
                 return
 
-            if input_data == 'delete':
+            if input_data == 'del':
                 modul_upper_level.delete_note()
                 return
 
@@ -40,7 +40,7 @@ def distributes_input_data_user(input_data: str):
                 return
 
             if input_data == 'info':
-                GUI.print_output_menu()
+                GUI.output_data(GUI.output_data_message['all_menu'])
                 return
         else:
             GUI.output_data(GUI.output_data_message['err_input'])

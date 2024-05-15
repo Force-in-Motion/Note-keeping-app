@@ -8,7 +8,11 @@ def run_program():
     Выводит Приветствие и информационный блок, содержащий список команд
     :return:
     """
-    GUI.print_output_menu()
+    import ctypes
+    kernel32 = ctypes.windll.kernel32
+    kernel32.SetConsoleMode(kernel32.GetStdHandle(-11), 7)
+    GUI.output_data(GUI.output_data_message['greetings'])
+    GUI.output_data(GUI.output_data_message['all_menu'])
     starts_main_loop()
 
 
@@ -19,7 +23,7 @@ def starts_main_loop():
     """
     while True:
         input_data = GUI.input_data('\033[36mВведите команду >> ')
-        if input_data == 'stop':
+        if input_data == 'stop' or input_data == 'back':
             GUI.output_data(GUI.output_data_message['off'])
             return
         if input_data != '':
