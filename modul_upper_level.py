@@ -98,6 +98,10 @@ def delete_note():
 
         del_note = ml.search_note_in_matrix_data()
 
+        if del_note == 'back':
+            GUI.output_data(GUI.output_data_message['back_menu'])
+            return
+
         ml.dell_note_in_matrix_data(del_note, matrix_notes)
 
         GUI.output_data(GUI.output_data_message['del'])
