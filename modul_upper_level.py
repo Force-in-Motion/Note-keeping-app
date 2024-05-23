@@ -1,6 +1,8 @@
-import modul_lower_level
+
 import GUI
-import save_and_load_data_user
+import modul_lower_level as ml
+import save_and_load_data_user as sld
+from save_and_load_data_user import matrix_notes
 
 def create_note():
     """
@@ -8,20 +10,20 @@ def create_note():
     :return: True или False
     """
     try:
-        lst_data_note = modul_lower_level.create_lst_data_note()
+        lst_data_note = ml.create_lst_data_note()
+
         if lst_data_note == 'back':
             GUI.output_data(GUI.output_data_message['back_menu'])
             return
 
-        write_data = modul_lower_level.create_write_data(lst_data_note)
-
-        save_and_load_data_user.write_data_in_file(write_data)
+        matrix_notes.append(lst_data_note)
 
         GUI.output_data(GUI.output_data_message['save'])
 
     except:
 
         GUI.output_data(GUI.output_data_message['err_save'])
+        return
 
 
 def search_all_notes():
@@ -29,36 +31,41 @@ def search_all_notes():
     Выводит в консоль все заметки по запросу пользователя если они существуют или выкидывает исключение
     :return:
     """
-    try:
-        if not save_and_load_data_user.check_len_file():
-            GUI.output_data(GUI.output_data_message['err_file'])
-            return
-        matrix_note = save_and_load_data_user.load_data()
 
-        GUI.print_all_notes(matrix_note)
-    except:
+    if not matrix_notes:
         GUI.output_data(GUI.output_data_message['err_file'])
+        return
+
+    GUI.print_all_notes(matrix_notes)
+
+    GUI.output_data(GUI.output_data_message['open_note'])
+
+    open_note = ml.search_note_in_matrix_data()
+
+    if open_note == 'back':
+        GUI.output_data(GUI.output_data_message['back_menu'])
+        return
+    else:
+        GUI.print_open_note(open_note)
 
 
-def search_note_by_name():
+
+def search_notes_by_input_data():
     """
     Выполняет поиск искомой заметки если она существует или выкидывает исключение
     :return: Возвращает искомую заметку
     """
-    if not save_and_load_data_user.check_file():
+    if not matrix_notes:
         GUI.output_data(GUI.output_data_message['err_file'])
         return
-    if not save_and_load_data_user.check_len_file():
-        GUI.output_data(GUI.output_data_message['err_file'])
-        return
-    matrix_note = save_and_load_data_user.load_data()
 
-    search_note = modul_lower_level.search_note_in_matrix_data(matrix_note)
-    if search_note == 'back':
+    matrix_search_notes = ml.check_input_data_and_return_new_matrix_notes()
+
+    if matrix_search_notes == 'back':
         GUI.output_data(GUI.output_data_message['back_menu'])
         return
     else:
-        GUI.print_search_note(search_note)
+        GUI.print_elems_matrix_notes(matrix_search_notes)
 
 
 def sorted_notes():
@@ -66,25 +73,16 @@ def sorted_notes():
     Сортирует заметки по названию, дате создания или по важности
     :return:
     """
-    try:
-        if not save_and_load_data_user.check_file():
-            GUI.output_data(GUI.output_data_message['err_file'])
-            return
+    if not matrix_notes:
+        GUI.output_data(GUI.output_data_message['err_file'])
+        return
 
-        if not save_and_load_data_user.check_len_file():
-            GUI.output_data(GUI.output_data_message['err_file'])
-            return
-        matrix_note = save_and_load_data_user.load_data()
+    GUI.output_data(GUI.output_data_message['sort_menu'])
 
-        GUI.output_data(GUI.output_data_message['sort_menu'])
-
-        set_notes = modul_lower_level.sorted_notes_by_input_data(matrix_note)
-        if set_notes == 'back':
-            GUI.output_data(GUI.output_data_message['back_menu'])
-            return
-
-    except:
-        GUI.output_data(GUI.output_data_message['err_sort'])
+    set_notes = ml.sorted_notes_by_input_data()
+    if set_notes == 'back':
+        GUI.output_data(GUI.output_data_message['back_menu'])
+        return
 
 
 
@@ -94,27 +92,20 @@ def delete_note():
     :return: True или False
     """
     try:
-        if not save_and_load_data_user.check_file():
+        if not matrix_notes:
             GUI.output_data(GUI.output_data_message['err_file'])
             return
-        if not save_and_load_data_user.check_len_file():
-            GUI.output_data(GUI.output_data_message['err_file'])
-            return
-        matrix_note = save_and_load_data_user.load_data()
 
-        del_note = modul_lower_level.search_note_in_matrix_data(matrix_note)
+        del_note = ml.search_note_in_matrix_data()
 
-        matrix_with_del_lst = modul_lower_level.dell_note_in_matrix_data(del_note, matrix_note)
-
-        write_data = modul_lower_level.transforms_matrix_in_str(matrix_with_del_lst)
-
-        save_and_load_data_user.rewrite_data_in_file(write_data)
+        ml.dell_note_in_matrix_data(del_note, matrix_notes)
 
         GUI.output_data(GUI.output_data_message['del'])
 
     except:
 
         GUI.output_data(GUI.output_data_message['err_del'])
+        return
 
 
 def edits_note():
@@ -123,39 +114,29 @@ def edits_note():
     :return:
     """
     try:
-        if not save_and_load_data_user.check_file():
+        if not matrix_notes:
             GUI.output_data(GUI.output_data_message['err_file'])
             return
 
-        if not save_and_load_data_user.check_len_file():
-            GUI.output_data(GUI.output_data_message['err_file'])
-            return
+        search_note = ml.search_note_in_matrix_data()
 
         GUI.output_data(GUI.output_data_message['edit_menu'])
-
-        matrix_note = save_and_load_data_user.load_data()
-
-        search_note = modul_lower_level.search_note_in_matrix_data(matrix_note)
 
         if search_note == 'back':
             GUI.output_data(GUI.output_data_message['back_menu'])
             return
 
-        matrix_with_edited_lst = modul_lower_level.create_edited_matrix_note(search_note, matrix_note)
+        matrix_with_edited_lst = ml.create_edited_matrix_note(search_note, matrix_notes)
 
         if matrix_with_edited_lst == 'back':
             GUI.output_data(GUI.output_data_message['back_menu'])
             return
 
-        write_data = modul_lower_level.transforms_matrix_in_str(matrix_with_edited_lst)
-
-        save_and_load_data_user.rewrite_data_in_file(write_data)
-
         GUI.output_data(GUI.output_data_message['edited'])
 
     except:
-
         GUI.output_data(GUI.output_data_message['err_edit'])
+        return
 
 
 def unloads_csv_file():
@@ -164,19 +145,14 @@ def unloads_csv_file():
     :return:
     """
     try:
-        if not save_and_load_data_user.check_file():
+        if not matrix_notes:
             GUI.output_data(GUI.output_data_message['err_file'])
             return
 
-        if not save_and_load_data_user.check_len_file():
-            GUI.output_data(GUI.output_data_message['err_file'])
-            return
-
-        matrix_note = save_and_load_data_user.load_data()
-
-        save_and_load_data_user.write_data_in_csv(matrix_note)
+        sld.write_data_in_csv(matrix_notes)
 
         GUI.output_data(GUI.output_data_message['csv'])
 
     except:
         GUI.output_data(GUI.output_data_message['err_csv'])
+        return

@@ -1,7 +1,7 @@
 import GUI
-import modul_lower_level
-import modul_upper_level
-import save_and_load_data_user
+import modul_lower_level as ml
+import modul_upper_level as mu
+
 
 
 def distributes_input_data_user(input_data: str):
@@ -11,32 +11,33 @@ def distributes_input_data_user(input_data: str):
     :return:
     """
     while True:
-        if modul_lower_level.check_command(input_data):
+        if ml.check_command(input_data):
             if input_data == 'add':
-                modul_upper_level.create_note()
+                mu.create_note()
                 return
 
             if input_data == 'all':
-                modul_upper_level.search_all_notes()
+                mu.search_all_notes()
                 return
 
             if input_data == 'search':
-                modul_upper_level.search_note_by_name()
+                mu.search_notes_by_input_data()
                 return
+
             if input_data == 'sort':
-                modul_upper_level.sorted_notes()
+                mu.sorted_notes()
                 return
 
             if input_data == 'del':
-                modul_upper_level.delete_note()
+                mu.delete_note()
                 return
 
             if input_data == 'edit':
-                modul_upper_level.edits_note()
+                mu.edits_note()
                 return
 
             if input_data == 'csv':
-                modul_upper_level.unloads_csv_file()
+                mu.unloads_csv_file()
                 return
 
             if input_data == 'info':

@@ -2,17 +2,12 @@ import os
 import csv
 
 
-def check_app():
-    path = os.environ.get('LOCALAPPDATA') + r'\Notes User'
-
+def create_folder():
     if not os.path.isdir(path):
         os.mkdir(path)
-    return path
 
 
-path = check_app()
-
-def check_file() -> bool:
+def check_file():
     """
     Проверяет наличие файла txt по указанному пути, в данном случае в папке
     :return: True или False
@@ -24,13 +19,12 @@ def check_file() -> bool:
         return False
 
 
-def check_len_file() -> bool:
+def check_len_file(matrix_notes):
     """
     Проверяет наличие данных в файле txt
     :return: True или False
     """
-    matrix = load_data()
-    if len(matrix) != 0:
+    if len(matrix_notes) != 0:
         return True
     else:
         return False
@@ -47,40 +41,6 @@ def read_data_in_file():
     return data_notes_from_file
 
 
-def rewrite_data_in_file(write_data: str):
-    """
-    Перезаписывает имеющийся файл txt, если файл отсутствует, то создает его
-    :param write_data: Пренимает данные для записи
-    :return:
-    """
-    file = open(path + r'\notes.txt', 'w', encoding='utf-8')
-    file.write(f'\n{write_data}')
-    file.close()
-
-
-def add_data_in_file(write_data: str):
-    """
-    Добавляет данные в файл txt
-    :param write_data: Пренимает данные для записи
-    :return:
-    """
-    file = open(path + r'\notes.txt', 'a', encoding='utf-8')
-    file.write(f'\n{write_data}')
-    file.close()
-
-def write_data_in_file(write_data: str):
-    """
-    Дозаписывает полученные данные в файл txt если он существует, либо создает файл txt если его нет и записывает туда данные, каждый раз полученные данные пишутся на новой строке
-    :param write_data: Пренимает данные в виде строки
-    :return:
-    """
-    try:
-        add_data_in_file(write_data)
-
-    except:
-        rewrite_data_in_file(write_data)
-
-
 def write_data_in_csv(write_data: list[list]):
     """
     Записывает полученные данные в файл в csv формате
@@ -93,20 +53,50 @@ def write_data_in_csv(write_data: list[list]):
     file.close()
 
 
+def transforms_matrix_in_str():
+    """
+    Обходит все списки матрицы и разделяет их элементы служебным символом, затем разделяет списки матрицы "\n"
+    :param matrix_with_del_lst: Пренимает матрицу элементов с удаленным списком
+    :return: Возвращает строку, готовыю к записи в файл
+    """
+    for i in range(0, len(matrix_notes), 1):
+        matrix_notes[i] = '<{@}>'.join(matrix_notes[i])
+    write_data = '\n'.join(matrix_notes)
 
-def load_data() -> list[list]:
+    return write_data
+
+
+def load_data():
     """
-    Вызывает внутри себя функцию, которая считывает данные из файла и обрабатывает, затем зоздает матрицу заметок, каждый вложенный список матрицы = 1 заметка со всеми ее элементами
-    :return: Возвращает матрицу заметок
+    Вызывает внутри себя создает папку, выполняет проверки на существование файла в папке и на то, что он не пустой, затем зоздает матрицу заметок, каждый вложенный список матрицы = 1 заметка со всеми ее элементами
+    :return: None
     """
+    create_folder()
+
+    if not check_file(): return
+
     data_notes_from_file = read_data_in_file()
 
-    matrix_note = []
+    if not check_len_file(data_notes_from_file): return
 
     for i in range(0, len(data_notes_from_file), 1):
         if data_notes_from_file[i] != '':
-            matrix_note.append(data_notes_from_file[i].split('<{@}>'))
-
-    return matrix_note
+            matrix_notes.append(data_notes_from_file[i].split('<{@}>'))
 
 
+def save_data():
+    """
+    Сохнаняет данные в тхт файл
+    :return:
+    """
+    write_data = transforms_matrix_in_str()
+
+    file = open(path + r'\notes.txt', 'w', encoding='utf-8')
+
+    file.write(f'\n{write_data}')
+
+    file.close()
+
+
+path = os.environ.get('LOCALAPPDATA') + r'\Notes User'
+matrix_notes = []
