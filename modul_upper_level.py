@@ -1,4 +1,3 @@
-
 import GUI
 import modul_lower_level as ml
 import save_and_load_data_user as sld
@@ -70,7 +69,7 @@ def search_notes_by_input_data():
 
 def sorted_notes():
     """
-    Сортирует заметки по названию, дате создания или по важности
+    Сортирует заметки по названию, дате создания или по важности или выкидывает исключение
     :return:
     """
     if not matrix_notes:

@@ -67,6 +67,7 @@ def color_text_output():
     """
     print('\n\033[1m\033[33mINFO: \033[0m', end='\t')
 
+
 def color_text_input():
     """
     Меняет цвет текста
@@ -119,7 +120,6 @@ def print_open_note(note) -> None or bool:
 
     for elem in note:
         print(f'\t\t{elem}')
-
 
 
 def print_elems_matrix_notes(matrix_search_notes) -> str or bool:
