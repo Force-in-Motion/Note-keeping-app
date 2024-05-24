@@ -20,6 +20,8 @@ def run_program():
 
     sld.save_data()
 
+    GUI.output_data('off')
+
 
 def starts_main_loop():
     """
@@ -30,7 +32,6 @@ def starts_main_loop():
     while True:
         input_data = GUI.input_data('\033[36mВведите команду >> ')
         if input_data == 'stop':
-            GUI.output_data(GUI.output_data_message['off'])
             return
 
         if input_data == 'back':

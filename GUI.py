@@ -20,12 +20,13 @@ output_data_message = {'greetings': """\033[36mПриветствую Вас!
         Для того чтобы редактировать текст введите \033[32m"text"\033[36m
         """,
                 'sort_menu': """\033[36mДля того чтобы сортировать ваши заметки по названию введите \033[32m"sort name"\033[36m
-        Для того чтобы сортировать ваши заметки по типу важности введите \033[32m"important" или not important\033[36m
+        Для того чтобы сортировать ваши заметки по типу важности введите \033[32m"important" или not important"\033[36m
         Для того чтобы сортировать ваши заметки по дате создания введите \033[32m"sort date"\033[36m
         """,
                 'importance_menu': """\033[36mОпределите важность заметки:
         Для того чтобы указать что заметка повышенной важности ( important ) введите \033[32m"+"\033[36m
-        Для того чтобы указать что заметка обычная ( not important ) введите \033[32m"-"\033[36m""",
+        Для того чтобы указать что заметка обычная ( not important ) введите \033[32m"-"\033[36m
+        """,
                 'srch_data_menu': """"\033Напоминаю:
         Текст и название может содержать любые символы
         Важность заметки- important или not important""",
@@ -34,16 +35,16 @@ output_data_message = {'greetings': """\033[36mПриветствую Вас!
                'editor': '\033[36mВведите элемент заметки, который требуется редактировать >>\033[0m',
                'edited': '\033[36mЗаметка успешно редактирована\033[0m',
                'srch_note': '\033[36mВведите название заметки, которую следует найти\033[0m',
+               'open_note': '\033[36mВведите \033[0m',
                'srch_date_in_notes': '\033[36mВведите данные, по которым следует найти заметки >> \033[0m',
-               'desired_note': '\033[36mВаша заметка имеет следующее содержание :\033[0m',
-               'disp_all_notes': '\033[36mСписок ваших заметок :\033[0m',
+               'desired_note': '\033[36mВаша заметка имеет следующее содержание :\033[0m\n',
+               'disp_all_notes': '\033[36mСписок ваших заметок :\033[0m\n',
                'del': '\033[36mВаша заметка успешно удалена!\033[0m',
-               'csv': '\033[36mФайл csv успешно создан!\033[0m',
-               'srt': '\033[36mВведите элемент заметки по которому будет производиться сортировка\033[0m',
-               'off': '\033[36mВсе данные сохранены.\n\t\tПриложение завершило свою работу!\033[0m',
+               'csv': '\033[36mФайл csv успешно создан на рабочем столе!\033[0m',
+               'off': '\033[36mВсе данные сохранены.\n\tПриложение завершило свою работу!\033[0m',
                'empty_note': '\033[36mПустая строка не может быть принята, введите данные!\033[0m',
                'back_menu': '\033[36mВы возвращены в главное меню\033[0m',
-               'open_note': '\033[36mДля того чтобы открыть нужную земетку введите ее название\n\t\tИли введите "back" для возврата в главное меню\033[0m',
+               'menu_open_note': '\033[36mДля того чтобы открыть нужную заметку введите ее название\n\tИли введите \033[32m"back"\033[36m для возврата в главное меню\033[0m',
                'err_menu': '\033[36mВы и так в главном меню\033[0m',
                'err_input': '\033[36mЯ пока не могу это обработать, введите команду из предложенных!\033[0m',
                'err_search': '\033[36mЗаметка с таким названием отсутствует, введите другое или создайте новую!\033[0m',
@@ -76,7 +77,7 @@ def color_text_input():
     print('\n\033[1m\033[35mUSER: \033[0m', end='\t')
 
 
-def input_data(message) -> str:
+def input_data(message: str) -> str:
     """
     Запрашивает у пользователя данные
     :return: Возвращает данные
@@ -87,19 +88,24 @@ def input_data(message) -> str:
     return input()
 
 
-def output_data(message) -> str:
+def output_data(message: str):
     """
     Выводит пользователю сообщение
     :param message: Пренимает параметр в виде строки
     :return: None
     """
+    if message == 'off':
+        color_text_output()
+        input(output_data_message[message])
+        return
+
     color_text_output()
     print(message)
 
 
 def print_all_notes(matrix_notes) -> None:
     """
-    Выводит в консоль все заметки пользователя
+    Выводит в консоль все названия заметок пользователя
     :return: None
     """
     output_data(output_data_message['disp_all_notes'])
@@ -107,46 +113,48 @@ def print_all_notes(matrix_notes) -> None:
     for i in range(0, len(matrix_notes), 1):
         for j in range(0, len(matrix_notes[i]), 1):
             pass
-        print(f'\t\t{matrix_notes[i][0]}')
+        print(f'\t{matrix_notes[i][0]}')
 
 
 def print_open_note(note) -> None or bool:
     """
     Выводит в консоль искомую заметку пользователя
-    :param matrix_note: Пренимает список, содержащий все эелементы заметки пользователя
     :return: None
     """
     output_data(output_data_message['desired_note'])
 
     for elem in note:
-        print(f'\t\t{elem}')
+        print(f'\t{elem}')
 
 
-def print_elems_matrix_notes(matrix_search_notes) -> str or bool:
+# def print_elems_matrix_notes(matrix_notes) -> None:
+#     """
+#     Выводит на консоль элементы полученной матрицы
+#     :param matrix_notes: Пренимает матрицу
+#     :return: None
+#     """
+#     for row in matrix_notes:
+#         for elem in row:
+#             print(f'\t{elem}')
+#         print()
+
+
+def print_sorted_notes_for_importance(input_data: str) -> None:
     """
-    Выполняет поиск совпадений полученной строки и элементов вложенных списков матрицы, если находит, то присваивает полученной строке список, содержащий совпадение
-    :param input_data: Пренимает строку
-    :param matrix: Пренимает матрицу
-    :return:
-    """
-    for i in range(0, len(matrix_search_notes), 1):
-        for j in range(0, len(matrix_search_notes[i]), 1):
-            print(f'\t\t{matrix_search_notes[i][j]}')
-        print()
-
-
-def print_sorted_notes_for_importance(input_data: str):
-    """
-    Выводит на консоль заметки пользователя исходя из заданных условий
+    Выводит на консоль названия заметок пользователя исходя из заданных условий
     :param input_data: Пренимает строку для сравнения с имеющимися в матрице заметок
-    :return:
+    :return: None
     """
     flag = False
-    for row in matrix_notes:
-        if input_data in row:
-            flag = True
-            for elem in row:
-                print(f'\t\t{elem}')
-            print()
+    for i in range(0, len(matrix_notes), 1):
+        for j in range(0, len(matrix_notes[i]), 1):
+            if input_data in matrix_notes[i][j]:
+                flag = True
+                print(f'\t{matrix_notes[i][0]}')
+    print()
     if not flag:
         output_data(output_data_message['err_srt_importance'])
+
+# py -m venv venv
+# venv\Scripts\activate
+# entry_point.py

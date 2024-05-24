@@ -15,7 +15,7 @@ def checks_input_for_empty_str(input_data) -> bool:
         return False
 
 
-def check_input_data_in_matrix_note(input_data) -> str or bool:
+def check_input_data_in_matrix_note(input_data: str) -> str or bool:
     """
     Выполняет поиск совпадений полученной строки и элементов вложенных списков матрицы, если находит, то присваивает полученной строке список, содержащий совпадение
     :param input_data: Пренимает строку
@@ -48,23 +48,11 @@ def create_matrix_search_notes(input_data: str) -> list[list]:
     return matrix_search_notes
 
 
-def check_command(input_data: str) -> bool:
-    """
-    Сравнивает вводимые данные с предложенными командами и возвращает True если такая команда существует или False если такой команды нет
-    :param input_data: Пренимает вводимые данные
-    :return: True или False
-    """
-    if input_data == 'add' or input_data == 'search' or input_data == 'all' or input_data == 'del' or input_data == 'edit' or input_data == 'info' or input_data == 'sort' or input_data == 'csv':
-        return True
-    else:
-        return False
-
-
 def check_name_note(input_data: str) -> bool:
     """
     Проверяет на совпадение пренимаемой строки и элементов матрицы
     :param input_data: Пренимает строку для проверки совпадения с элементами матрицы
-    :return: True
+    :return: bool
     """
     for row in matrix_notes:
         for elem in row:
@@ -74,7 +62,7 @@ def check_name_note(input_data: str) -> bool:
                 continue
 
 
-def requests_and_check_name_note() -> bool or str:
+def requests_and_check_name_note() -> str:
     """
     Запрашивает название заметки и осуществляет проверки, если проверки пройдены то возвращает название заметки или строку 'back' если ее ввел пользователь
     :return: Возвращет название заметки если все проверки успешно пройдены или строку 'back' если пользователь ввел эту команду
@@ -97,7 +85,7 @@ def requests_and_check_name_note() -> bool or str:
             return name_note
 
 
-def requests_and_check_importance_note() -> bool or str:
+def requests_and_check_importance_note() -> str:
     """
     Запрашивает важность заметки и осуществляет проверки, если проверки пройдены то возвращает выбранную пользователем важность заметки или строку 'back' если ее ввел пользователь
     :return: Возвращет важность или строку 'back' если пользователь ввел эту команду
@@ -121,7 +109,7 @@ def requests_and_check_importance_note() -> bool or str:
             continue
 
 
-def requests_and_check_text_note() -> bool or str:
+def requests_and_check_text_note() -> str:
     """
     Запрашивает текст заметки и осуществляет проверки, если проверки пройдены то возвращает текст заметки или строку 'back' если ее ввел пользователь
     :return: Возвращет текст заметки если проверки успешно пройдены или строку 'back' если пользователь ввел эту команду
@@ -139,7 +127,7 @@ def requests_and_check_text_note() -> bool or str:
             return text_note
 
 
-def create_lst_data_note() -> list or bool:
+def create_lst_data_note() -> list or str:
     """
     Создает список элементов заметки в виде строк
     :return: Возвращает список элементов заметки
@@ -179,7 +167,7 @@ def sorted_notes_by_input_data() -> list[list] or str:
     :return: Возвращает сортированную матрицу заметок
     """
     while True:
-        input_data = GUI.input_data(GUI.output_data_message['srt'])
+        input_data = GUI.input_data(GUI.output_data_message['sort_menu'])
 
         if input_data == 'back':
             return 'back'
@@ -197,7 +185,7 @@ def sorted_notes_by_input_data() -> list[list] or str:
             continue
 
 
-def search_note_in_matrix_data() -> list or bool:
+def search_note_in_matrix_data() -> list or str:
     """
     Внутри себя запрашивает у пользователя название заметки, проводит проверки и находит нужный список, содержащий элементы искомой заметки или строку 'back' если ее ввел пользователь
     :return: Возвращает список, содержащий элементы искомой заметки или строку 'back' если ее ввел пользователь
@@ -221,7 +209,31 @@ def search_note_in_matrix_data() -> list or bool:
             return search_note
 
 
-def check_input_data_and_return_new_matrix_notes() -> list or bool:
+def open_note_in_matrix_data() -> list or str:
+    """
+    Внутри себя запрашивает у пользователя название заметки, проводит проверки и находит нужный список, содержащий элементы искомой заметки или строку 'back' если ее ввел пользователь
+    :return: Возвращает список, содержащий элементы искомой заметки или строку 'back' если ее ввел пользователь
+    """
+    while True:
+        input_data = GUI.input_data(GUI.output_data_message['menu_open_note'])
+        if input_data == 'back':
+            return 'back'
+
+        if not checks_input_for_empty_str(input_data):
+            GUI.output_data(GUI.output_data_message['empty_note'])
+            continue
+
+        open_note = check_input_data_in_matrix_note(f'\033[36mНазвание заметки:\033[0m {input_data}')
+
+        if not open_note:
+            GUI.output_data(GUI.output_data_message['err_search'])
+            continue
+
+        else:
+            return open_note
+
+
+def check_input_data_and_return_new_matrix_notes() -> list or str:
     """
     Внутри себя запрашивает у пользователя данные, которые проходят проверки и если они пройдены, то возвращает готовыю матрицу заметок в которых были найдены совпадения с введенными данными
     :return: Возвращает список, содержащий элементы искомой заметки или строку 'back' если ее ввел пользователь
@@ -245,11 +257,10 @@ def check_input_data_and_return_new_matrix_notes() -> list or bool:
             return matrix_search_notes
 
 
-def dell_note_in_matrix_data(del_note, matrix_notes: str and list[list]) -> list[list]:
+def dell_note_in_matrix_data(del_note) -> list[list]:
     """
     Обходит полученную матрицу и сравнивает каждый вложенный список с полученным списком, который требуется удалить и если они равны то удаляет его
     :param del_note: Пренимает в виде списка заметку, которую требуется удалить
-    :param matrix_note: Матрица списков, содержащих элементы сохраненных заметок
     :return: Возвращает матрицу с удаленным списком
     """
     for i in range(0, len(matrix_notes), 1):
@@ -259,14 +270,10 @@ def dell_note_in_matrix_data(del_note, matrix_notes: str and list[list]) -> list
             return matrix_notes
 
 
-
-
-
-def create_edited_matrix_note(search_note, matrix_note: str and list[list]) -> list[list] or bool:
+def create_edited_matrix_note(search_note) -> list[list] or str:
     """
     Редактирует матрицу заметок согласно полученным данным
     :param search_note: Пренимает список, содержащий редактированную заметку
-    :param matrix_note: Пренимает матрицу исходных заметок
     :return: Возвращает матрицу редактированных заметок или строку 'back' если ее ввел пользователь
     """
     while True:
@@ -284,7 +291,7 @@ def create_edited_matrix_note(search_note, matrix_note: str and list[list]) -> l
             if edit_note == 'back':
                 return 'back'
 
-            matrix_with_edited_lst = dell_note_in_matrix_data(search_note, matrix_note)
+            matrix_with_edited_lst = dell_note_in_matrix_data(search_note)
 
             matrix_with_edited_lst.append(edit_note)
 
@@ -292,9 +299,6 @@ def create_edited_matrix_note(search_note, matrix_note: str and list[list]) -> l
         else:
             GUI.output_data(GUI.output_data_message['err_input'])
             continue
-
-
-
 
 
 def edit_data_lst_note(search_note, input_data: list and str) -> list or str:

@@ -2,6 +2,7 @@ import os
 import csv
 
 
+
 def create_folder():
     if not os.path.isdir(path):
         os.mkdir(path)
@@ -47,7 +48,7 @@ def write_data_in_csv(write_data: list[list]):
     :param write_data:
     :return:
     """
-    file = open(path + r'\notes.csv', 'w', newline='')
+    file = open(path_csv + r'\notes.csv', 'w', newline='')
     writer = csv.writer(file)
     writer.writerows(write_data)
     file.close()
@@ -56,7 +57,7 @@ def write_data_in_csv(write_data: list[list]):
 def transforms_matrix_in_str():
     """
     Обходит все списки матрицы и разделяет их элементы служебным символом, затем разделяет списки матрицы "\n"
-    :param matrix_with_del_lst: Пренимает матрицу элементов с удаленным списком
+    :param matrix_notes: Пренимает матрицу элементов
     :return: Возвращает строку, готовыю к записи в файл
     """
     for i in range(0, len(matrix_notes), 1):
@@ -99,4 +100,5 @@ def save_data():
 
 
 path = os.environ.get('LOCALAPPDATA') + r'\Notes User'
+path_csv = os.path.expanduser('~') + r'\Desktop'
 matrix_notes = []
