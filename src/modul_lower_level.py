@@ -19,7 +19,6 @@ def check_input_data_in_matrix_note(input_data: str) -> str or bool:
     """
     Выполняет поиск совпадений полученной строки и элементов вложенных списков матрицы, если находит, то присваивает полученной строке список, содержащий совпадение
     :param input_data: Пренимает строку
-    :param matrix: Пренимает матрицу
     :return:
     """
     for row in matrix_notes:
@@ -163,7 +162,6 @@ def create_lst_data_note() -> list or str:
 def sorted_notes_by_input_data() -> list[list] or str:
     """
     Сортирует матрицу по заданным пользователем параметрам
-    :param matrix_note: Пренимает матрицу заметок
     :return: Возвращает сортированную матрицу заметок
     """
     while True:

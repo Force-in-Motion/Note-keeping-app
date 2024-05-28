@@ -127,16 +127,16 @@ def print_open_note(note) -> None or bool:
         print(f'\t{elem}')
 
 
-# def print_elems_matrix_notes(matrix_notes) -> None:
-#     """
-#     Выводит на консоль элементы полученной матрицы
-#     :param matrix_notes: Пренимает матрицу
-#     :return: None
-#     """
-#     for row in matrix_notes:
-#         for elem in row:
-#             print(f'\t{elem}')
-#         print()
+def print_elems_matrix_notes(matrix_notes) -> None:
+    """
+    Выводит на консоль элементы полученной матрицы
+    :param matrix_notes: Пренимает матрицу
+    :return: None
+    """
+    for row in matrix_notes:
+        for elem in row:
+            print(f'\t{elem}')
+        print()
 
 
 def print_sorted_notes_for_importance(input_data: str) -> None:
@@ -154,7 +154,3 @@ def print_sorted_notes_for_importance(input_data: str) -> None:
     print()
     if not flag:
         output_data(output_data_message['err_srt_importance'])
-
-# py -m venv venv
-# venv\Scripts\activate
-# entry_point.py
